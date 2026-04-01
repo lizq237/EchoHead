@@ -1,0 +1,108 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+/* Bloque navbar */
+
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+
+.Inicio {
+  min-height: 100vh;
+  width: 100vw;
+  background-color: #DBDADA;
+  font-family: 'Times New Roman', Times, serif; 
+}
+
+
+header {
+  display: flex;
+  justify-content: space-between; 
+  align-items: center; 
+  padding-top: 50px;    
+  padding-bottom: 10px; 
+  padding-left: 100px; 
+  padding-right: 100px;
+  margin: 0 100px;
+  border-bottom: 2.5px solid #000; 
+  
+}
+
+
+.EchoHead {
+  font-family: 'Fredoka One', cursive; 
+  font-weight: 500;
+  margin-bottom: 0;
+  color: #000;
+  font-size: 2.7rem;
+  cursor: pointer;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  gap: 40px; 
+}
+
+.datos-user {
+  display: flex;
+  align-items: center;
+  gap: 10px; 
+}
+
+.FotoPerfil {
+  width: 60px; 
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.username {
+  font-family: 'Fredoka One';
+  font-size: 1.7rem;
+}
+
+
+header > div:last-child {
+  display: flex;
+  align-items: center;
+  gap: 100px; 
+}
+
+.BotonBusqueda {
+  width: 35px;
+  cursor: pointer;
+}
+
+a {
+  cursor: pointer;
+  font-family: 'Fredoka One';
+  font-size: 1.7rem;
+}
+
+.aboutus {
+  cursor: pointer;
+  font-family: 'source serif pro';
+  font-size: 1.7rem;
+}
+
+a:hover {
+  opacity: 0.4; 
+}
+
+
+/* Bloque de contenido principal */
+.h1 {
+  font-family: 'playfair display'  serif;
+  font-size: 3.5rem;
+  font-weight: 400;
+  margin-top: 50px;
+  margin-bottom: 20px;
+  color: #000;
+  text-align: center;
+}
+
