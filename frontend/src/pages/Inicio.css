@@ -24,8 +24,8 @@ header {
   align-items: center; 
   padding-top: 50px;    
   padding-bottom: 10px; 
-  padding-left: 100px; 
-  padding-right: 100px;
+  padding-left: 20px; 
+  padding-right: 20px;
   margin: 0 100px;
   border-bottom: 2.5px solid #000; 
   
@@ -106,3 +106,84 @@ a:hover {
   text-align: center;
 }
 
+/* Artistas */
+.artistas {
+  margin-top: 50px;
+  padding: 0 50px;
+}
+
+.encabezado-artistas {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  border-bottom: #000 solid 2.5px;
+  margin-bottom: 30px;
+  margin-left: 80px;
+  margin-right: 80px;
+}
+
+.artistas-momento {
+  font-family: 'playfair display'  serif;
+  font-weight: 400;
+  font-size: 2.0rem;
+  color: #000;
+}
+
+p {
+  font-family: 'playfair display'  serif;
+  font-size: 1.5rem;
+  color: #000;
+  cursor: pointer;
+}
+
+
+.contenedor-cuadros {
+  display: flex;
+  flex-direction: row;
+  justify-content: center; 
+  gap: 40px; 
+  padding: 0;        
+  overflow-x: auto; 
+  margin-right: 60px;
+}
+
+.cuadro-artista {
+  background-color: #d1d1d1; 
+  padding: 15px 15px 60px 15px; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative; 
+  box-shadow: 7px 15px 8px rgba(0, 0, 0, 0.08); 
+  width: 300px; 
+  height: 360px;
+  border-radius: 4px; 
+  margin-left: 80px;
+  margin-top: 40px;
+}
+
+.cuadro-artista img {
+  width: 230px; 
+  height: 230px;
+  border-radius: 30px; 
+  object-fit: cover; 
+}
+
+.artistname {
+  font-family: 'Playfair Display', Times, serif; 
+  font-size: 1.6rem;
+  margin-top: 20px;
+  color: #000;
+}
+
+.artistrank {
+  position: absolute; 
+  bottom: 0; 
+  left: 0;   
+  background-color: #7F66E2; 
+  color: #000;
+  font-family: 'Fredoka One', cursive; 
+  font-size: 2.0rem;
+  font-weight: bold;
+  padding: 5px 15px; 
+}
