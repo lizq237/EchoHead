@@ -12,7 +12,6 @@ function App() {
     const spotifyCode = urlParams.get('code');
 
     if (spotifyCode) {
-        // Limpiamos la URL para que no se vea el código feo
         window.history.pushState({}, null, "/");
         fetch('http://localhost:8888/intercambiar-token', {
             method: 'POST',

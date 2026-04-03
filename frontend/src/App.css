@@ -1,11 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
 
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
-
 
 .login-echohead {
   display: flex;
@@ -14,16 +14,13 @@
   background-color: #DBDADA;
 }
 
-
 .login-imagen {
   flex: 1; 
   overflow: hidden;
-  padding: 0;
-  margin: 0;
 }
 
 .imagen-fondo {
-  width: 90%;
+  width: 100%;
   height: 100%;
   object-fit: cover; 
   object-position: center; 
@@ -35,12 +32,13 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 20px;
   font-family: 'Times New Roman', Times, serif;
 }
 
 .titulo-echohead {
   font-size: 8rem;
-  font-family: fredoka one;
+  font-family: 'Fredoka One', cursive;
   font-weight: 500;
   margin-bottom: 0;
   color: #000;
@@ -49,41 +47,95 @@
 .hola {
   font-size: 5rem;
   font-weight: normal;
-  font-family: playfair display, serif;
+  font-family: 'Playfair Display', serif;
   margin-top: 50px;
   margin-bottom: 0;
   color: #000;
+  text-align: center;
 }
 
 .texto {
   font-size: 3rem;
-  margin-top: 50px;
+  margin-top: 30px;
   margin-bottom: 40px;
-  font-family: playfair display, serif;
+  font-family: 'Playfair Display', serif;
   color: #333;
+  text-align: center;
 }
 
 .spoify-logo {
+  margin-top: 20px;
   margin-bottom: 50px;
 }
 
 .spotify-img {
   width: 150px;
   height: 150px;
-  
 }
 
 .login-button {
   background-color: #121212;
   color: white;
-  padding: 15px 50px;
+  padding: 15px 60px;
   font-size: 2.5rem;
   border: none;
   border-radius: 80px;
   cursor: pointer;
-  font-family: 'playfair display';
+  font-family: 'Playfair Display', serif;
 }
 
 .login-button:hover {
   background-color: #58cd3b;
+}
+
+@media (max-width: 768px) {
+  .login-echohead {
+    flex-direction: column;
+    height: auto;
+    min-height: 100vh;
+  }
+
+  .login-imagen {
+    height: 45vh;
+    width: 100%;
+    flex: none;
+  }
+
+  .contenido-login {
+    flex: none;
+    width: 100%;
+    padding: 40px 20px;
+    justify-content: flex-start;
+  }
+
+  .titulo-echohead {
+    font-size: 4rem;
+  }
+
+  .hola {
+    font-size: 2.5rem;
+    margin-top: 20px;
+  }
+
+  .texto {
+    font-size: 1.5rem;
+    margin-top: 20px;
+    margin-bottom: 30px;
+  }
+
+  .spotify-img {
+    width: 100px;
+    height: 100px;
+  }
+
+  .spoify-logo {
+    margin-top: 10px;
+    margin-bottom: 30px;
+  }
+
+  .login-button {
+    font-size: 1.8rem;
+    padding: 12px 50px;
+    width: 80%;
+  }
 }
