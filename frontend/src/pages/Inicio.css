@@ -13,8 +13,12 @@
 .Inicio {
   min-height: 100vh;
   width: 100vw;
-  background-color: #DBDADA;
   font-family: 'Times New Roman', Times, serif; 
+}
+body {
+  background-color: #DBDADA; 
+  margin: 0;
+  padding: 0;
 }
 
 
@@ -59,11 +63,13 @@ nav {
   border-radius: 50%;
   object-fit: cover;
   object-position: center;
+  cursor: pointer;
 }
 
 .username {
   font-family: 'Fredoka One';
   font-size: 1.7rem;
+  cursor: pointer;
 }
 
 
@@ -141,9 +147,8 @@ p {
   display: flex;
   flex-direction: row;
   justify-content: center; 
+  flex-wrap: wrap;
   gap: 40px; 
-  padding: 0;        
-  overflow-x: auto; 
   margin-right: 60px;
 }
 
@@ -174,6 +179,9 @@ p {
   font-size: 1.6rem;
   margin-top: 20px;
   color: #000;
+  text-align: center;
+  width: 100%;
+  display: block;
 }
 
 .artistrank {
@@ -182,8 +190,139 @@ p {
   left: 0;   
   background-color: #7F66E2; 
   color: #000;
-  font-family: 'Fredoka One', cursive; 
+  font-family: 'palanquin dark', sans-serif; 
   font-size: 2.0rem;
   font-weight: bold;
   padding: 5px 15px; 
 }
+
+/* Albumes */
+
+.albumes {
+  margin-top: 70px;
+  padding: 0 50px;
+}
+
+.encabezado-albumes {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  border-bottom: #000 solid 2.5px;
+  margin-bottom: 30px;
+  margin-left: 80px;
+  margin-right: 80px;
+}
+
+.albumes-momento {
+  font-family: 'playfair display'  serif;
+  font-weight: 400;
+  font-size: 2.0rem;
+  color: #000;
+}
+
+.cuadro-album {
+  background-color: #d1d1d1; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative; 
+  width: 300px; 
+  height: 300px;
+  margin-left: 80px;
+  margin-top: 40px;
+}
+
+.cuadro-album img {
+  width: 300px; 
+  height: 300px;
+  object-fit: fill; 
+}
+
+.albumname {
+  font-family: 'Playfair Display', Times, serif; 
+  font-size: 1.6rem;
+  margin-top: 20px;
+  color: #000;
+  text-align: center;
+  width: 100%;
+  display: block;
+}
+
+.albumrank {
+  position: absolute; 
+  bottom: 0; 
+  left: 0;   
+  background-color: #EDC73A; 
+  color: #000;
+  font-family: 'palanquin dark', sans-serif; 
+  font-size: 2.0rem;
+  font-weight: bold;
+  padding: 5px 15px; 
+}
+
+/*  Canciones */
+
+.canciones {
+  margin-top: 120px;
+  padding: 0 50px;
+}
+.encabezado-canciones {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  border-bottom: #000 solid 2.5px;
+  margin-bottom: 30px;
+  margin-left: 80px;
+  margin-right: 80px;
+}
+.canciones-momento {
+  font-family: 'playfair display'  serif;
+  font-weight: 400;
+  font-size: 2.0rem;
+  color: #000;
+}
+
+.cuadro-cancion {
+  background-color: #DBDADA; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative; 
+  width: 300px; 
+  height: 300px;
+  margin-left: 80px;
+  margin-top: 40px;
+}
+
+.cuadro-cancion img {
+  width: 300px; 
+  height: 300px;
+  border-radius: 50%;
+  object-fit: fill; 
+}
+
+.songname {
+  font-family: 'Playfair Display', Times, serif; 
+  font-size: 1.6rem;
+  margin-top: 20px;
+  color: #000;
+  text-align: center;
+  width: 100%;
+  display: block;
+
+}
+
+.songrank {
+  position: absolute; 
+  bottom: 0; 
+  left: 0;   
+  background-color: #5ACB74; 
+  color: #000;
+  font-family: 'palanquin dark', sans-serif; 
+  font-size: 2.0rem;
+  font-weight: bold;
+  padding: 5px 15px; 
+}
+
+
+
