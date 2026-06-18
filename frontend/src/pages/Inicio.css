@@ -316,4 +316,192 @@ p {
     width: 145px;
     height: 145px;
   }
+} 
+
+
+
+
+.carrusel {
+  position: relative;
+  width: 100%;
+  min-height: 1300px; /* <--- Aumentamos la altura aquí */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  background-color: #111111;
+  perspective: 1200px;
+}
+
+/* El texto central */
+.carrusel h3 {
+  position: absolute;
+  z-index: 10;
+  color: white;
+  font-size: 3.5rem;
+  font-family: 'Playfair Display', serif;
+  text-align: center;
+  pointer-events: none;
+  text-shadow: 0 4px 20px rgba(0,0,0,0.9);
+}
+
+/* 2. EL ROTOR */
+.carrusel-artistas {
+  position: relative;
+  /* Reducimos ligeramente el tamaño de la carta para que respire mejor en la pantalla */
+  width: 220px; 
+  height: 220px; 
+  transform-style: preserve-3d;
+  animation: rotarCilindro 40s linear infinite;
+}
+
+.carrusel-artistas:hover {
+  animation-play-state: paused;
+}
+
+/* 3. LAS TARJETAS */
+.card {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+  
+  /* Reducimos el radio a -480px para que encaje perfecto en los 1050px del contenedor */
+  transform: rotateZ(calc(var(--i) * (360deg / var(--n)))) translateY(-480px) rotateX(-90deg);
+  
+  transition: filter 0.3s ease, transform 0.3s ease;
+  filter: brightness(0.6);
+}
+
+.card:hover {
+  filter: brightness(1.2);
+  transform: rotateZ(calc(var(--i) * (360deg / var(--n)))) translateY(-480px) rotateX(-90deg) scale(1.08);
+  cursor: pointer;
+}
+
+/* 4. LA ANIMACIÓN */
+@keyframes rotarCilindro {
+  from {
+    /* 15 grados es el ángulo dulce para ver el efecto 3D sin aplastarlo */
+    transform: rotateX(15deg) rotateZ(0deg);
+  }
+  to {
+    transform: rotateX(15deg) rotateZ(360deg);
+  }
+}
+
+
+
+
+.textos-extra-carrusel {
+    background-color: #111111; /* El mismo negro exacto del carrusel */
+    color: white;
+    width: 100%;
+    min-height: 400px; /* Hazlo tan alto como necesites */
+    padding: 0 100px 100px 100px; /* Espaciado interno para que el texto no pegue en las orillas */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centra el texto */
+    font-family: 'Playfair Display', serif; /* Manteniendo tu estilo de fuente */
+}
+
+.textos-extra-carrusel h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+.textos-extra-carrusel p {
+    font-size: 1.5rem;
+    color: #cccccc; /* Un gris claro para que se lea bien en el fondo oscuro */
+    max-width: 800px;
+    text-align: center;
+}
+
+
+
+
+.textofinal {
+  position: relative; 
+  background-color: #932E2E; 
+  width: 100%;
+  min-height: 320px; 
+  margin-top: 230px; 
+  margin-bottom: 80px;
+  display: flex;
+  align-items: center; 
+  justify-content: flex-start; 
+  padding-left: 10%; 
+}
+
+.descripcion {
+  width: 35%; 
+  font-family: 'Dosis'; 
+  font-size: 2.3rem;
+  color: #ffffff;
+  text-align: center;
+  line-height: 1.6; 
+  margin: 0; 
+}
+
+.Vinilo {
+  position: absolute; 
+  right: 15%; 
+  top: 50%; 
+  transform: translateY(-50%); 
+  width: 600px; 
+  height: auto; 
+  z-index: 10; 
+  filter: drop-shadow(0px 15px 25px rgba(0, 0, 0, 0.4)); 
+}
+
+@keyframes girarDisco {
+  from {
+    transform: translateY(-50%) rotate(0deg);
+  }
+  to {
+    transform: translateY(-50%) rotate(360deg);
+  }
+}
+
+.Vinilo:hover {
+  animation: girarDisco 2s linear infinite;
+  cursor: pointer; 
+}
+
+@media (max-width: 768px) {
+  .textofinal {
+    flex-direction: column; 
+    padding: 40px 20px;
+    margin-top: 80px;
+  }
+  
+  .descripcion {
+    width: 100%;
+    margin-bottom: 40px; 
+    font-size: 3.2rem;
+  }
+  
+  .Vinilo {
+    position: relative; 
+    right: 0;
+    top: 0;
+    transform: none;
+    width: 200px;
+  }
+}
+
+.footer-text {
+  text-align: center;
+  font-family: 'Old Standard TT';
+  font-size: 2.0rem;
+  color: #000;
+  margin-top: 220px;
+  background-color: #C5CAC3;
+  height: 100px;
+  line-height: 100px;
+  
 }

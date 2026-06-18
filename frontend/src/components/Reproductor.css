@@ -1,0 +1,117 @@
+/* EL CONTENEDOR PRINCIPAL: Anclado al fondo */
+.reproductor-flotante {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 90px;
+    background: rgba(18, 18, 18, 0.85); /* Fondo oscuro semitransparente */
+    backdrop-filter: blur(12px); /* Efecto cristal ahumado */
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 40px;
+    box-sizing: border-box;
+    z-index: 1000; /* Asegura que flote por encima de absolutamente todo */
+    color: white;
+}
+
+/* --- BLOQUE IZQUIERDO --- */
+.reproductor-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    width: 30%; /* Ocupa una tercera parte de la barra */
+}
+
+/* El cuadro que vuelve redonda a la imagen */
+.contenedor-vinilo-reproductor {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid #282828;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+/* La imagen girando sola */
+.vinilo-giratorio {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    animation: spin 8s linear infinite; /* Gira cada 8 segundos sin parar */
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.reproductor-textos {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.reproductor-titulo {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.reproductor-artista {
+    margin: 0;
+    font-size: 0.85rem;
+    color: #b3b3b3; /* Gris clásico de Spotify */
+}
+
+/* --- BLOQUE CENTRAL --- */
+.reproductor-progreso {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 40%;
+    justify-content: center;
+}
+
+.tiempo-actual, .tiempo-total {
+    font-size: 0.8rem;
+    color: #b3b3b3;
+    min-width: 35px;
+}
+
+.barra-fondo {
+    flex-grow: 1;
+    height: 6px;
+    background-color: #4d4d4d;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.barra-llenado {
+    height: 100%;
+    background-color: #1db954; /* El verde vibrante de Spotify */
+    border-radius: 10px;
+}
+
+/* --- BLOQUE DERECHO --- */
+.reproductor-estado {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 15px;
+    width: 30%;
+}
+
+.estado-texto {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #1db954;
+}
+
+.logo-spotify-reproductor {
+    width: 25px;
+    height: 25px;
+    opacity: 0.8;
+}

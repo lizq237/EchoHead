@@ -9,13 +9,15 @@
 
 .login-echohead {
   display: flex;
-  height: 100vh;
-  width: 100vw;
+  /* CAMBIO CLAVE: min-height en lugar de height fijo, y 100% en lugar de 100vw */
+  min-height: 100vh;
+  width: 100%;
   background-color: #DBDADA;
 }
 
 .login-imagen {
-  flex: 1; 
+  /* Al poner flex: 1 1 50%, nos aseguramos de que siempre tome la mitad y no se deje "aplastar" por el texto */
+  flex: 1 1 50%; 
   overflow: hidden;
 }
 
@@ -27,17 +29,19 @@
 }
 
 .contenido-login {
-  flex: 1;
+  flex: 1 1 50%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 20px;
+  padding: 5%; /* Porcentaje en lugar de px para que respire al hacer zoom */
   font-family: 'Times New Roman', Times, serif;
+  text-align: center; /* Asegura que todo el texto interior se centre */
 }
 
 .titulo-echohead {
-  font-size: 8rem;
+  /* CLAMP: (Mínimo, Ideal, Máximo) - Se ajusta solo al hacer zoom o cambiar pantalla */
+  font-size: clamp(4rem, 6vw, 8rem);
   font-family: 'Fredoka One', cursive;
   font-weight: 500;
   margin-bottom: 0;
@@ -45,22 +49,20 @@
 }
 
 .hola {
-  font-size: 5rem;
+  font-size: clamp(2.5rem, 4vw, 5rem);
   font-weight: normal;
   font-family: 'Playfair Display', serif;
   margin-top: 50px;
   margin-bottom: 0;
   color: #000;
-  text-align: center;
 }
 
 .texto {
-  font-size: 3rem;
+  font-size: clamp(1.5rem, 2.5vw, 3rem);
   margin-top: 30px;
   margin-bottom: 40px;
   font-family: 'Playfair Display', serif;
   color: #333;
-  text-align: center;
 }
 
 .spoify-logo {
@@ -69,73 +71,47 @@
 }
 
 .spotify-img {
-  width: 150px;
-  height: 150px;
+  /* Un pequeño clamp para la imagen de Spotify también ayuda */
+  width: clamp(100px, 10vw, 150px);
+  height: auto; 
 }
 
 .login-button {
   background-color: #121212;
   color: white;
-  padding: 15px 60px;
-  font-size: 2.5rem;
+  padding: clamp(12px, 2vw, 15px) clamp(40px, 5vw, 60px);
+  font-size: clamp(1.5rem, 2vw, 2.5rem);
   border: none;
   border-radius: 80px;
   cursor: pointer;
   font-family: 'Playfair Display', serif;
+  transition: background-color 0.3s ease; /* Transición suave para el hover */
 }
 
 .login-button:hover {
   background-color: #58cd3b;
 }
 
+/* El media query ahora solo se encarga de apilar los elementos en celulares */
 @media (max-width: 768px) {
   .login-echohead {
     flex-direction: column;
-    height: auto;
-    min-height: 100vh;
   }
 
   .login-imagen {
-    height: 45vh;
-    width: 100%;
     flex: none;
+    height: 40vh; /* Le damos el 40% de la pantalla en móvil a la imagen */
+    width: 100%;
   }
 
   .contenido-login {
     flex: none;
-    width: 100%;
-    padding: 40px 20px;
-    justify-content: flex-start;
-  }
-
-  .titulo-echohead {
-    font-size: 4rem;
+    height: 60vh; /* Y el 60% al contenido */
+    padding: 20px;
+    justify-content: center;
   }
 
   .hola {
-    font-size: 2.5rem;
     margin-top: 20px;
-  }
-
-  .texto {
-    font-size: 1.5rem;
-    margin-top: 20px;
-    margin-bottom: 30px;
-  }
-
-  .spotify-img {
-    width: 100px;
-    height: 100px;
-  }
-
-  .spoify-logo {
-    margin-top: 10px;
-    margin-bottom: 30px;
-  }
-
-  .login-button {
-    font-size: 1.8rem;
-    padding: 12px 50px;
-    width: 80%;
   }
 }

@@ -1,0 +1,624 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+
+.pagina-perfil {
+    background-color: #DBDADA;
+    min-height: 100vh;
+    width: 100%;
+}
+
+.contenedor-tarjeta {
+    display: flex;
+    justify-content: center;
+    margin-top: 60px;
+    padding: 0 40px;
+}
+
+.tarjeta-perfil {
+    display: flex;
+    align-items: center;
+    width: 90%; 
+    max-width: 1100px; 
+    background-color: #DBDADA; 
+    
+    padding: 25px 50px; 
+    
+    border-radius: 4px;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: 10px 15px 25px rgba(0, 0, 0, 0.15); 
+}
+
+.perfil-izquierda {
+    margin-right: 40px;
+}
+
+.foto-grande {
+    width: 130px; 
+    height: 130px;
+    border-radius: 50%; 
+    object-fit: cover;
+    background-color: #ccc; 
+}
+
+.perfil-centro {
+    flex: 1; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 10px;
+}
+
+.nombre-usuario {
+    font-family: 'Fredoka One', cursive; 
+    font-size: 2.2rem;
+    color: #000;
+    margin-bottom: 5px; 
+}
+
+.descripcion {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    color: #333;
+    margin-bottom: 15px; 
+    white-space: nowrap; 
+}
+
+.estadisticas {
+    display: flex;
+    align-items: center;
+    font-family: 'Times New Roman', Times, serif; 
+}
+
+.stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.stat-num {
+    font-size: 1.2rem;
+    color: #555;
+}
+
+.stat-label {
+    font-size: 1rem;
+    color: #000;
+}
+
+.linea-vertical {
+    height: 40px;
+    width: 1px;
+    background-color: #000;
+    margin: 0 20px;
+}
+
+.perfil-derecha {
+    margin-left: 20px;
+}
+
+.btn-editar {
+    background-color: #7BC8F6; 
+    color: #000;
+    border: none;
+    padding: 15px 40px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-editar:hover {
+    transform: translateY(-3px); 
+    box-shadow: 0 5px 15px rgba(123, 200, 246, 0.4);
+}
+
+/* --- CONTENEDOR DEL MENÚ --- */
+.menu-perfil {
+    display: flex;
+    justify-content: center; 
+    margin-top: 50px;        
+    width: 100%;
+}
+
+/* --- LA CAJA CON EL BORDE --- */
+.apartados {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px; 
+    
+    padding: 15px 40px; 
+    
+    border: 1px solid #555; 
+    background-color: transparent; 
+}
+
+.apartados a {
+    text-decoration: none; 
+    color: #000;
+    font-size: 1.2rem;
+    font-family: 'League Spartan', serif; 
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.apartados a:hover {
+    color: #7BC8F6; 
+    transform: translateY(-2px); 
+}
+
+/* --- SECCIÓN PRINCIPAL --- */
+.artistas-favs {
+    margin-top: 50px;
+    padding: 0 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+}
+
+.topArtistasTitle {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    color: #000;
+    margin-bottom: 40px;
+    text-align: center;
+    font-weight: 500;
+}
+
+/* --- EL CONTENEDOR DE LA CUADRÍCULA --- */
+.contenedor-artistasfavs {
+    display: flex;
+    flex-wrap: wrap; 
+    justify-content: center;
+    gap: 50px; 
+    width: 100%;
+    max-width: 1500px;
+}
+
+/* --- CADA CUADRO DE ARTISTA INDIVIDUAL --- */
+.cuadro-artistafav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 240px; 
+    height: 240px;
+}
+
+/* --- LA MAGIA DEL CUADRADO PERFECTO --- */
+.imagen-artista {
+    width: 260px;
+    height: 160px; 
+    object-fit: cover; 
+    object-position: center; 
+    
+    background-color: #D3D3D3; 
+    border: 1px solid rgba(0, 0, 0, 0.05); 
+    border-radius: 4px; 
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
+}
+
+/* --- EL NOMBRE Y LA LÍNEA INFERIOR --- */
+.artista-name {
+    margin-top: 15px;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: #000;
+    text-align: center;
+    width: 100%;
+    line-height: 1.2; /* Ayuda a que el texto en varios renglones no se vea tan separado */
+ 
+}
+
+/* --- SECCIÓN PRINCIPAL DE ÁLBUMES --- */
+.albumes-favs-seccion {
+    margin-top: 50px;
+    padding: 0 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+}
+
+.topAlbumesTitle {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    color: #000;
+    margin-bottom: 40px;
+    text-align: center;
+    font-weight: 500;
+}
+
+/* --- EL CONTENEDOR DE LA CUADRÍCULA --- */
+.contenedor-albumesfavs {
+    display: flex;
+    flex-wrap: wrap; 
+    justify-content: center;
+    gap: 80px; 
+    width: 100%;
+    max-width: 1500px; 
+}
+
+/* --- CADA CUADRO DE ÁLBUM INDIVIDUAL --- */
+.cuadro-albumfav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 200px; 
+}
+
+/* --- EL CUADRADO PERFECTO 1:1 --- */
+.imagen-album {
+    width: 200px;
+    height: 200px; 
+    object-fit: cover; 
+    object-position: center; 
+    
+    background-color: #D3D3D3; 
+    border: 1px solid rgba(0, 0, 0, 0.05); 
+    border-radius: 4px; 
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
+}
+
+/* --- EL NOMBRE Y LA LÍNEA INFERIOR --- */
+.album-name {
+    margin-top: 15px;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: #000;
+    text-align: center;
+    width: 100%;
+    line-height: 1.2;
+    
+}
+
+/* --- MAIN SONGS SECTION --- */
+.canciones-favs-seccion {
+    margin-top: 50px;
+    padding: 0 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    margin-bottom: 120px;
+}
+
+.topCancionesTitle {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    color: #000;
+    margin-bottom: 40px;
+    text-align: center;
+    font-weight: 500;
+}
+
+/* --- SONG GRID CONTAINER --- */
+.contenedor-cancionesfavs {
+    display: flex;
+    flex-wrap: wrap; 
+    justify-content: center; 
+    gap: 90px; 
+    width: 100%;
+    max-width: 1500px; 
+}
+
+/* --- INDIVIDUAL SONG ITEM CONTAINER --- */
+.cuadro-cancionfav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 180px; /* Igualado al tamaño de la imagen para que la línea mida lo mismo */
+}
+
+/* --- THE CIRCULAR IMAGE --- */
+.imagen-cancion {
+    width: 180px;
+    height: 180px; 
+    
+    border-radius: 50%; 
+    object-fit: cover; 
+    object-position: center; 
+    
+    background-color: #D3D3D3; 
+    border: 1px solid rgba(0, 0, 0, 0.05); 
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
+}
+
+/* --- THE SONG NAME --- */
+.cancion-name {
+    margin-top: 15px;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: #000;
+    text-align: center;
+    width: 100%;
+    line-height: 1.2;
+    
+  
+}
+.btn-eliminar {
+    position: relative;
+    top: -5px; /* Sube un poco la tachuela */
+    right: -5px; /* La mueve hacia afuera para que no tape tanta portada */
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 10;
+}
+.icono-eliminar {
+    width: 26px;
+    height: 26px;
+    transition: transform 0.2s ease;
+    filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.6)); /* Sombra para que se lea bien en fondos claros */
+}
+
+.btn-eliminar:hover .icono-eliminar {
+    transform: scale(1.15); /* Efecto de rebote al pasar el mouse */
+}
+
+.cuadro-cancionfav.agregar {
+    cursor: pointer;
+    opacity: 0.6; /* Lo hace ver un poco transparente (como hueco disponible) */
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.cuadro-cancionfav.agregar:hover {
+    opacity: 1; /* Se ilumina al pasar el mouse */
+    transform: scale(1.03);
+}
+
+.icono-agregar {
+    margin-top: 60px; /* Lo baja para que quede centrado en el círculo vacío */
+    width: 40px;
+    height: 40px;
+    margin-bottom: 20px;
+}
+
+.modal-cancion, .modal-album, .modal-artista {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(5px); /* Magia pura: desenfoca tu perfil de fondo */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+/* --- LA CAJA PRINCIPAL --- */
+.modal-contenido {
+    background-color: #2c3440; /* El clásico tono gris-azulado oscuro de Letterboxd */
+    width: 90%;
+    max-width: 450px; /* Para que no se estire demasiado en pantallas grandes */
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Separa los elementos por dentro */
+}
+
+.modal-contenido h2 {
+    margin: 0;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #9ab; /* Texto secundario gris claro */
+}
+
+/* --- EL BUSCADOR --- */
+.input-modal {
+    width: 100%;
+    padding: 12px 15px;
+    background-color: #14181c; /* Fondo más oscuro para que resalte */
+    border: 1px solid #445566;
+    border-radius: 6px;
+    color: white;
+    font-size: 1rem;
+    outline: none;
+    box-sizing: border-box;
+    transition: border-color 0.2s;
+}
+
+.input-modal:focus {
+    border-color: #1DB954; /* Toque verde Spotify al escribir */
+}
+
+/* --- BOTONES DEL MODAL --- */
+.btn-guardar {
+    background-color: #1DB954;
+    color: #14181c;
+    border: none;
+    padding: 10px;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btn-cancelar {
+    background-color: transparent;
+    color: #9ab;
+    border: 1px solid #9ab;
+    padding: 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-cancelar:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+
+.modal-resultados {
+    margin-top: 10px;
+    max-height: 250px;
+    overflow-y: auto; /* Permite scrollear si hay muchas canciones */
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+/* Scrollbar personalizado estilo macOS */
+.modal-resultados::-webkit-scrollbar {
+    width: 6px;
+}
+.modal-resultados::-webkit-scrollbar-thumb {
+    background-color: #445566;
+    border-radius: 10px;
+}
+
+/* --- CADA CANCIÓN INDIVIDUAL --- */
+.resultado-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 8px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.resultado-item:hover {
+    background-color: #445566; /* Ilumina el renglón al pasar el mouse */
+}
+
+.img-miniatura {
+    width: 40px;
+    height: 40px;
+    border-radius: 4px;
+    object-fit: cover;
+}
+
+.info-resultado {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.nombre-res {
+    margin: 0;
+    font-size: 0.95rem;
+    font-weight: bold;
+    color: white;
+}
+
+.artista-res {
+    margin: 0;
+    font-size: 0.8rem;
+    color: #9ab;
+}
+
+
+
+/* --- SECCIÓN "TU MES EN BUCLE" --- */
+.bucle-mes-usuario {
+    text-align: center;
+    padding: 60px 20px;
+    background-color: transparent; /* <-- EL CAMBIO: Lo hacemos transparente para que se vea el fondo de tu página */
+}
+
+.bucleMesTitle {
+    font-size: 2rem;
+    margin-bottom: 40px;
+    font-weight: normal;
+    color: #111;
+}
+
+
+.bucle-layout {
+    display: flex;
+    justify-content: flex-start; /* Esto empuja todo el bloque hacia la izquierda */
+    align-items: center;
+    width: 100%; /* Asegura que tome todo el ancho de la pantalla */
+}
+
+
+.contenedor-bucle-gris {
+    background-color: #cccccc;
+    width: 65%; /* <-- Le dimos un poquito más de espacio */
+    padding: 50px 30px 70px 50px;
+    display: flex;
+    justify-content: center; 
+    gap: 40px; /* <-- Espacio entre las tarjetas grandes */
+    align-items: flex-start;
+    margin-left: -20px;
+}
+
+.cuadro-bucle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 170px; /* <-- ¡MÁS GRANDES! Antes estaban en 130px */
+}
+
+/* ¡EL TRUCO MAGNÍFICO! Seleccionamos solo el cuadro número 2 y lo empujamos para abajo */
+.cuadro-bucle:nth-child(2) {
+    margin-top: 50px; /* La baja */
+    flex-direction: column-reverse; /* <-- INVIERTE EL ORDEN: Texto -> Línea -> Foto */
+}
+
+/* Las fotos */
+
+.imagen-bucle {
+    width: 100%;
+    aspect-ratio: 1 / 1; /* <-- ¡CAMBIO! De 3/4 (rectángulo) a 1/1 (cuadrado perfecto) */
+    border-radius: 50%;  /* <-- ¡LA MAGIA! Esto recorta la imagen en un círculo exacto */
+    object-fit: cover;
+    background-color: white; 
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2); /* Le subí un pelín la sombra para que resalte más la forma 3D */
+}
+
+
+
+.imagen-bucle-artist {
+    width: 100%;
+    aspect-ratio: 3/ 4; /* Mantiene el cuadrado perfecto */
+    border-radius: 4px;  /* Bordes ligeramente redondeados para artistas */
+    object-fit: cover;
+    background-color: white; 
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2); 
+}
+
+/* La línea separadora */
+.linea-bucle {
+    width: 100%;
+    border: none;
+    border-top: 1px solid #444;
+    margin: 12px 0; /* Más espacio para respirar entre la foto y el texto */
+}
+
+/* El texto de la canción (MEJORADO PARA TEXTOS LARGOS) */
+.cancion-bucle {
+    font-size: 0.95rem; /* Letra un poquito más grande */
+    margin: 0;
+    color: #111;
+    text-align: center;
+    width: 100%;
+    
+    /* TRUCO PARA TEXTOS LARGOS: Permite usar hasta 2 renglones limpios */
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Límite de 2 líneas */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    white-space: normal; /* Le quitamos el nowrap para que pueda bajar de renglón */
+}
+
+.bucle-derecha {
+    flex: 1; /* Esto hace que el lado derecho tome TOOOODO el espacio vacío que sobra en la pantalla */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centra perfectamente el título y el icono en ese espacio sobrante */
+}
+
+.bucle-categoria-titulo {
+    font-size: 1.5rem;
+    margin-bottom: 30px;
+    font-weight: normal;
+    color: #111;
+}
+
+.icono-bucle {
+    width: 120px; /* Tamaño de tu silueta */
+    height: auto;
+}
