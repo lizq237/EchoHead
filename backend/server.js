@@ -29,7 +29,7 @@ const REDIRECT_URI = process.env.REDIRECT_URI;
 
 // --- TUS RUTAS DE SPOTIFY (Intactas) ---
 app.get('/login', (req, res) => {
-  const scope = 'user-read-private user-read-email user-top-read playlist-read-private user-library-read';  
+  const scope = 'user-read-private user-read-email user-top-read playlist-read-private user-library-read user-read-currently-playing user-read-playback-state user-modify-playback-state';
   res.redirect('https://accounts.spotify.com/authorize?' +
     querystring.stringify({
       response_type: 'code',

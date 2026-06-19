@@ -62,7 +62,7 @@ function Inicio( { username, fotoPerfil, topArtistas, topAlbumes, topCanciones} 
             
 
             <div className='carrusel'>
-                <h3>Descubre nuevos artistas</h3>
+                <h3>Descubre Nuevos Artistas</h3>
                 <div className='carrusel-artistas' style={{ "--n": 13 }}>
                     <img src="https://i.scdn.co/image/ab67616d0000b27333b8541201f1ef38941024be" alt="Taylor Swift" className='card' style= {{ "--i": 0 }} />
                     <img src="https://i.scdn.co/image/ab67616d0000b273c8b444df094279e70d0ed856" alt="Radiohead" className='card' style= {{ "--i": 1 }} />
@@ -86,12 +86,37 @@ function Inicio( { username, fotoPerfil, topArtistas, topAlbumes, topCanciones} 
                 <p>Cada canción cuenta una historia y cada álbum guarda un recuerdo. Crea tu bóveda personal, califica los discos que te han marcado y construye un archivo visual con los ritmos que te acompañan día a día.</p>
             </div>
 
-        <section>
-            <div className='textofinal'>
-                <p className='descripcion'>Explora ritmos que conectan continentes y melodías que borran cualquier límite. Tu próxima canción favorita está en algún lugar del mundo.</p>
-                <img src={Vinilo} alt="Vinilo" className='Vinilo' />
+
+           <div className="seccion-album-semana horizontal">
+    
+    {/* CAJA IZQUIERDA: Animación del Vinilo */}
+    <div className="album-mitad-grafica">
+        <div className='contenedor-album-test'>
+            <img src="https://i.scdn.co/image/ab67616d0000b2736949b83f85d782b21ce70583" alt="Olivia Rodrigo" className='portada-test' />
+            <div className='disco-test'> 
+                <img src={Vinilo} alt="Vinilo" className='vinilo-base' /> 
+                <img src="https://i.scdn.co/image/ab67616d0000b2736949b83f85d782b21ce70583" alt="Label" className='vinilo-label' /> 
             </div>
-        </section>
+        </div>
+    </div>
+
+    {/* CAJA DERECHA: Título, Textos y Reseña */}
+    <div className="album-mitad-texto">
+        <h2 className="album-semana-titulo">Álbum de la semana</h2>
+        
+        <div className="album-semana-artista">Olivia Rodrigo</div>
+        <div className="album-semana-nombre">you seem pretty sad for a girl so in love</div>
+        
+        <blockquote className="album-semana-cita">
+            "But nothing it's quiet enough when I know that to get it I begged"
+            <span className="cita-cancion">— begged</span>
+        </blockquote>
+
+        
+    </div>
+</div>
+
+        
             
 
         <footer>

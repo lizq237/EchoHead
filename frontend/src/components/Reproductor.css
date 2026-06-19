@@ -1,117 +1,225 @@
-/* EL CONTENEDOR PRINCIPAL: Anclado al fondo */
-.reproductor-flotante {
+/* --- BARRA FLOTANTE ESTILO iOS (Píldora) --- */
+.reproductor-barra {
     position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 90px;
-    background: rgba(18, 18, 18, 0.85); /* Fondo oscuro semitransparente */
-    backdrop-filter: blur(12px); /* Efecto cristal ahumado */
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    bottom: 24px; /* Separado del fondo de la pantalla */
+    left: 50%;
+    transform: translateX(-50%); /* Centrado perfecto en horizontal */
+    width: 90%;
+    max-width: 850px; /* Evita que se estire demasiado en monitores anchos */
+    height: 88px; /* Un poco más alta para dar espacio a la barra de tiempo */
+    background-color: rgba(30, 30, 30, 0.65); /* Cristal oscuro traslúcido */
+    backdrop-filter: blur(25px) saturate(180%); /* El efecto difuminado premium de Apple */
+    -webkit-backdrop-filter: blur(25px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.15); /* Borde sutil brillante */
+    border-radius: 28px; /* Esquinas muy redondeadas tipo píldora */
     display: flex;
-    align-items: center;
+    flex-direction: row;
     justify-content: space-between;
-    padding: 0 40px;
+    align-items: center;
+    padding: 0 24px;
     box-sizing: border-box;
-    z-index: 1000; /* Asegura que flote por encima de absolutamente todo */
-    color: white;
+    z-index: 9999; /* Siempre por encima de cualquier otro elemento */
+    font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45); /* Sombra suave para dar profundidad */
+    transition: transform 0.5s cubic-bezier(0.32, 0.72, 0, 1), opacity 0.4s ease;
 }
 
-/* --- BLOQUE IZQUIERDO --- */
+/* --- BLOQUE IZQUIERDO: INFO DE LA CANCIÓN --- */
 .reproductor-info {
     display: flex;
     align-items: center;
-    gap: 15px;
-    width: 30%; /* Ocupa una tercera parte de la barra */
+    gap: 14px;
+    width: 30%; 
+    min-width: 180px;
 }
 
-/* El cuadro que vuelve redonda a la imagen */
-.contenedor-vinilo-reproductor {
-    width: 55px;
-    height: 55px;
-    border-radius: 50%;
-    overflow: hidden;
-    border: 2px solid #282828;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-}
-
-/* La imagen girando sola */
-.vinilo-giratorio {
-    width: 100%;
-    height: 100%;
+.reproductor-portada {
+    width: 52px;
+    height: 52px;
+    border-radius: 10px; /* Curvatura característica de las interfaces de iOS */
     object-fit: cover;
-    animation: spin 8s linear infinite; /* Gira cada 8 segundos sin parar */
-}
-
-@keyframes spin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
 }
 
 .reproductor-textos {
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    overflow: hidden;
 }
 
-.reproductor-titulo {
-    margin: 0;
-    font-size: 1rem;
-    font-weight: 700;
+.reproductor-nombre {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 2px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    letter-spacing: -0.3px;
 }
 
 .reproductor-artista {
-    margin: 0;
     font-size: 0.85rem;
-    color: #b3b3b3; /* Gris clásico de Spotify */
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.6); /* Color atenuado elegante */
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
-/* --- BLOQUE CENTRAL --- */
+/* --- BLOQUE CENTRAL: CONTROLES Y TIEMPO (Apilado vertical) --- */
+.reproductor-centro {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 40%;
+    gap: 6px; /* Separación balanceada entre botones y la barra de tiempo */
+}
+
+.reproductor-controles {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 28px;
+}
+
+/* BOTONES DE CONTROL BASE */
+.btn-control {
+    background: none;
+    border: none;
+    color: #ffffff; 
+    font-size: 1.5rem; /* Tamaño optimizado para los iconos vectoriales */
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    opacity: 0.8;
+    transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+.btn-control:hover {
+    opacity: 1;
+    transform: scale(1.08);
+}
+
+.btn-control:active {
+    transform: scale(0.92);
+    opacity: 0.6;
+}
+
+/* BOTÓN DE PLAY CENTRAL EN CIRCULO BLANCO */
+.btn-control.btn-play {
+    color: #000000;
+    background-color: #ffffff;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    opacity: 1;
+    font-size: 1.2rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.btn-control.btn-play:hover {
+    transform: scale(1.1);
+    background-color: #f6f6f6;
+}
+
+/* --- LA BARRA DE PROGRESO Y TEMPORIZADORES --- */
 .reproductor-progreso {
     display: flex;
     align-items: center;
-    gap: 12px;
-    width: 40%;
-    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    max-width: 360px; /* Ancho cómodo para que sea fácil leer los tiempos */
 }
 
-.tiempo-actual, .tiempo-total {
-    font-size: 0.8rem;
-    color: #b3b3b3;
-    min-width: 35px;
+.tiempo {
+    font-size: 0.72rem;
+    color: rgba(255, 255, 255, 0.45);
+    font-variant-numeric: tabular-nums; /* Clave: hace que los números midan lo mismo y la barra no tiemble */
+    min-width: 28px;
+    text-align: center;
 }
 
 .barra-fondo {
     flex-grow: 1;
-    height: 6px;
-    background-color: #4d4d4d;
-    border-radius: 10px;
+    height: 4px;
+    background-color: rgba(255, 255, 255, 0.15); /* Fondo sutil de la barra */
+    border-radius: 4px;
     overflow: hidden;
 }
 
-.barra-llenado {
+.barra-relleno {
     height: 100%;
-    background-color: #1db954; /* El verde vibrante de Spotify */
-    border-radius: 10px;
+    background-color: #ffffff; /* El color del avance */
+    border-radius: 4px;
+    width: 0%; /* React controla este porcentaje dinámicamente */
+    transition: width 1s linear; /* Suaviza el salto de cada segundo para que avance fluido */
 }
 
-/* --- BLOQUE DERECHO --- */
-.reproductor-estado {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    gap: 15px;
+/* --- BLOQUE DERECHO: EXTRAS --- */
+.reproductor-extras {
     width: 30%;
+    display: flex;
+    justify-content: flex-end;
 }
 
-.estado-texto {
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: #1db954;
+
+
+.reproductor-barra.oculto {
+    transform: translate(-50%, 150px); /* Desliza la barra hacia abajo fuera de la pantalla */
+    opacity: 0;
+    pointer-events: none; /* Evita que estorbe los clics cuando está invisible */
 }
 
-.logo-spotify-reproductor {
-    width: 25px;
-    height: 25px;
-    opacity: 0.8;
+/* --- BOTÓN PARA OCULTAR (Flecha en la barra) --- */
+.btn-ocultar {
+    font-size: 1.4rem;
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.btn-ocultar:hover {
+    color: #ffffff;
+    transform: scale(1.1) translateY(2px); /* Baja un poquito al pasar el mouse */
+}
+
+/* --- BOTÓN FLOTANTE PARA RESTAURAR (Nota Musical) --- */
+.btn-restaurar {
+    position: fixed;
+    bottom: 24px;
+    right: 32px; /* Se queda en la esquina inferior derecha */
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background-color: rgba(30, 30, 30, 0.75);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: white;
+    font-size: 1.6rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 9999;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    /* Inicia escondido en chiquito */
+    transform: scale(0);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease;
+}
+
+/* Cuando se le agrega la clase visible, hace un efecto "pop" */
+.btn-restaurar.visible {
+    transform: scale(1);
+    opacity: 1;
+    pointer-events: all;
+}
+
+.btn-restaurar:hover {
+    background-color: rgba(50, 50, 50, 0.9);
+    transform: scale(1.08);
 }

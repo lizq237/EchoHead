@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import btnagregar from '../assets/agregar.png';
-import artistImg from '../assets/artist-imagen-perfil.png';
 import btneliminar from '../assets/eliminar-btn.png';
-import viniloImg from '../assets/imagen-vinilo-perfil.png';
 import Navbar from "../components/Navbar";
 import './Perfil.css';
 
@@ -161,11 +159,7 @@ function Perfil ({ username, fotoPerfil , tokenSpotify, id_echohead}) {
     const [artistasMes, setArtistasMes] = useState([]);
     const [albumesMes, setAlbumesMes] = useState([]);
 
-    /* =======================================================
-       BLOQUE DE SPOTIFY APAGADO POR EL ERROR 429 
-       YA CORREGIDO CON USE EFFECT PARA LOS ÁLBUMES
-       ======================================================= */
-    /*
+    
     useEffect(() => {
         if (tokenSpotify) {
             fetch('https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=3', {
@@ -227,7 +221,7 @@ function Perfil ({ username, fotoPerfil , tokenSpotify, id_echohead}) {
             .catch(error => console.error("Error al deducir top álbumes:", error));
         }
     }, [tokenSpotify]);
-    */
+    
 
     return (
     <div className="pagina-perfil">
@@ -459,58 +453,54 @@ function Perfil ({ username, fotoPerfil , tokenSpotify, id_echohead}) {
         {/* BUCLES (Sin datos por ahora mientras está en modo Desarrollo) */}
         <section className="bucle-mes-usuario">
             <h2 className="bucleMesTitle">Tu mes en bucle</h2>
-            <div className="bucle-layout">
-                <div className="contenedor-bucle-gris">
-                    {cancionesMes.map((cancion) => (
-                        <div className="cuadro-bucle" key={cancion.id}>
-                            <img src={cancion.album.images[0]?.url} alt="" className="imagen-bucle"/>
-                            <hr className="linea-bucle" />
-                            <p className="cancion-bucle">{cancion.name}</p>
-                        </div>
-                    ))}
-                </div>
-                <div className="bucle-derecha">
-                    <h3 className="bucle-categoria-titulo">Top Canciones</h3>
-                    <img src={viniloImg} alt="Icono" className="icono-bucle" />
-                </div>
-            </div>
-        </section>
-
-        <section className="bucle-mes-usuario">
-            <div className="bucle-layout">
-                <div className="contenedor-bucle-gris">
-                    {artistasMes.map((artista) => (
-                        <div className="cuadro-bucle" key={artista.id}>
-                            <img src={artista.images[0]?.url} alt="" className="imagen-bucle-artist"/>
-                            <hr className="linea-bucle" />
-                            <p className="cancion-bucle">{artista.name}</p>
-                        </div>
-                    ))}
-                </div>
-                <div className="bucle-derecha">
+            
+            <div className="bucle-columnas-layout">
+                
+                {/* COLUMNA 1: ARTISTAS */}
+                <div className="bucle-columna">
                     <h3 className="bucle-categoria-titulo">Top Artistas</h3>
-                    <img src={artistImg} alt="Icono" className="icono-bucle" />
+                    <div className="bucle-lista">
+                        {artistasMes.map((artista) => (
+                            <div className="bucle-item" key={artista.id}>
+                                <img src={artista.images[0]?.url} alt="" className="bucle-img-cuadro"/>
+                                <div className="bucle-texto-contenedor">
+                                    <p className="bucle-nombre">{artista.name}</p>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
                 </div>
-            </div>
-        </section>
 
-        <section className="bucle-mes-usuario">
-            <div className="bucle-layout">
-                <div className="contenedor-bucle-gris">
-                    {albumesMes.map((album) => (
-                        <div className="cuadro-bucle" key={album.id}>
-                            <img src={album.albumImage} alt={album.albumName} className="imagen-bucle" />
-                            <hr className="linea-bucle" />
-                            <p className="cancion-bucle">
-                                {album.albumName}
-                            </p>
-                        </div>
-                    ))}
-                </div>
-                <div className="bucle-derecha">
+                {/* COLUMNA 2: ÁLBUMES */}
+                <div className="bucle-columna">
                     <h3 className="bucle-categoria-titulo">Top Álbumes</h3>
-                    <img src={viniloImg} alt="Icono" className="icono-bucle" />
+                    <div className="bucle-lista">
+                        {albumesMes.map((album) => (
+                            <div className="bucle-item" key={album.id}>
+                                <img src={album.albumImage} alt={album.albumName} className="bucle-img-cuadro" />
+                                <div className="bucle-texto-contenedor">
+                                    <p className="bucle-nombre">{album.albumName}</p>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
                 </div>
+
+                {/* COLUMNA 3: CANCIONES */}
+                <div className="bucle-columna">
+                    <h3 className="bucle-categoria-titulo">Top Canciones</h3>
+                    <div className="bucle-lista">
+                        {cancionesMes.map((cancion) => (
+                            <div className="bucle-item" key={cancion.id}>
+                                <img src={cancion.album.images[0]?.url} alt="" className="bucle-img-circulo" />
+                                <div className="bucle-texto-contenedor">
+                                    <p className="bucle-nombre">{cancion.name}</p>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
             </div>
         </section>
 

@@ -339,7 +339,7 @@ p {
   z-index: 10;
   color: white;
   font-size: 3.5rem;
-  font-family: 'Playfair Display', serif;
+  font-family: Inter, sans-serif;
   text-align: center;
   pointer-events: none;
   text-shadow: 0 4px 20px rgba(0,0,0,0.9);
@@ -393,6 +393,170 @@ p {
     transform: rotateX(15deg) rotateZ(360deg);
   }
 }
+
+
+
+
+
+
+
+/* Contenedor principal: define el espacio de la escena */
+.contenedor-album-test {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    cursor: pointer;
+    margin: 50px auto; /* Centrado en pantalla */
+}
+
+/* La portada que se desliza */
+.portada-test {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2; /* Siempre encima del disco */
+    transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    object-fit: cover;
+}
+
+/* El grupo del disco (Vinilo + Etiqueta) */
+.disco-test {
+    position: absolute;
+    top: 0;
+    right: 10px; /* Un poco desplazado para que empiece un poquito "asomado" */
+    width: 90%;
+    height: 90%;
+    margin-top: 5%;
+    z-index: 1; /* Detrás de la portada */
+    transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* El vinilo base (el disco negro) */
+.vinilo-base {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%; /* Lo hace circular */
+    object-fit: cover;
+}
+
+/* La etiqueta (el label circular en el centro) */
+.vinilo-label {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 35%; /* Tamaño del agujero central */
+    height: 35%;
+    border-radius: 50%; /* Círculo perfecto */
+    object-fit: cover;
+    border: 2px solid rgba(0,0,0,0.2);
+}
+
+/* EFECTO HOVER: Aquí ocurre la magia */
+.contenedor-album-test:hover .portada-test {
+    transform: translateX(-80px) rotate(-5deg); /* Desliza izquierda e inclina */
+}
+
+.contenedor-album-test:hover .disco-test {
+    transform: translateX(40px) rotate(15deg); /* Desliza derecha y gira el vinilo */
+}
+
+
+
+
+
+.album-semana-titulo {
+    font-family: Inter, sans-serif;
+    font-size: 2.5rem;
+    font-weight: 400;
+    color: #000;
+    margin-bottom: 30px; /* Espacio entre el título y el disco */
+}
+
+
+/* --- ESTRUCTURA HORIZONTAL PRINCIPAL --- */
+.seccion-album-semana.horizontal {
+    display: flex;
+    flex-direction: row;
+    align-items: center; /* Centra el disco y los textos verticalmente */
+    justify-content: center;
+    max-width: 1100px; /* Evita que se estire demasiado en monitores anchos */
+    margin: 100px auto; /* Centrado en pantalla con buen espacio vertical */
+    gap: 120px; /* EL SECRETO: Espacio gigante para que el vinilo pueda salir a la derecha */
+}
+
+/* CAJA IZQUIERDA */
+.album-mitad-grafica {
+    flex-shrink: 0; /* Evita que el disco se haga chiquito si escribes mucho texto */
+}
+
+/* CAJA DERECHA */
+.album-mitad-texto {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Acomoda todo hacia la izquierda */
+    text-align: left;
+}
+
+/* --- TIPOGRAFÍAS Y ESTILOS EDITORIALES --- */
+.album-semana-titulo {
+    font-size: 3.5rem;
+    font-weight: bold;
+    color: #111111;
+    margin-bottom: 25px;
+    font-family: 'Playfair Display', serif;
+}
+
+.album-semana-artista {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #111111;
+    margin-bottom: 4px;
+    font-family: 'Inter', sans-serif;
+}
+
+.album-semana-nombre {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #666666;
+    font-family: 'Inter', sans-serif;
+}
+
+/* Detalle de revista: Le puse una línea sutil a la izquierda de la cita */
+.album-semana-cita {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-style: italic;
+    color: #222222;
+    margin: 25px 0;
+    line-height: 1.4;
+    border-left: 3px solid #89A1AD; 
+    padding-left: 20px; 
+}
+
+.cita-cancion {
+    display: block;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    font-style: normal;
+    color: #888888;
+    margin-top: 12px;
+    font-weight: 500;
+    letter-spacing: 1px; /* Separamos un poco las letras para darle estilo */
+}
+
+.album-semana-resena {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.1rem;
+    color: #444444;
+    line-height: 1.7;
+    max-width: 480px; /* Controla el ancho del párrafo para lectura cómoda */
+}
+
 
 
 
