@@ -38,3 +38,23 @@ CREATE TABLE top_canciones(
     UNIQUE (user_id, song_spotify_id)
 );
 
+
+CREATE TABLE interacciones (
+    id SERIAL primary key, --id de la interaccion
+    id_echohead integer references users (id_echohead) on delete cascade, --id del usuario que hizo la interaccion
+    spotify_id varchar (50) not null, --el que te da spotify 
+    tipo varchar (10) not null , --song o album
+    nombre Varchar (255) not null, --de la cancion o del album
+    artista Varchar (255) not null, --del dueño de la cancion o album
+    imagen_url Text not null, -- de la cancion o album
+    es_escuchado Boolean default false, -- boton de la palomita
+    es_favorito Boolean default false, -- boton del corazon
+    es_pendiente Boolean default false, --boton de agregar a pendientes
+    calificacion int check (calificacion >=0 AND calificacion<=5), --estrellas, puede ser null si no le pica
+    descripcion text, --texto de la resena, puede ser null
+    fecha_interaccion timestamp default current_timestamp,
+    UNIQUE (id_echohead, spotify_id)
+
+)
+
+

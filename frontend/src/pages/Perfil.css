@@ -146,191 +146,158 @@
 }
 
 /* --- SECCIÓN PRINCIPAL --- */
-.artistas-favs {
-    margin-top: 50px;
-    padding: 0 40px;
-    display: flex;
-    flex-direction: column;
-    align-items: center; 
-}
 
-.topArtistasTitle {
-    font-family: 'Playfair Display', serif;
-    font-size: 2rem;
-    color: #000;
-    margin-bottom: 40px;
-    text-align: center;
-    font-weight: 500;
-}
-
-/* --- EL CONTENEDOR DE LA CUADRÍCULA --- */
-.contenedor-artistasfavs {
-    display: flex;
-    flex-wrap: wrap; 
-    justify-content: center;
-    gap: 50px; 
-    width: 100%;
-    max-width: 1500px;
-}
-
-/* --- CADA CUADRO DE ARTISTA INDIVIDUAL --- */
-.cuadro-artistafav {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 240px; 
-    height: 240px;
-}
-
-/* --- LA MAGIA DEL CUADRADO PERFECTO --- */
-.imagen-artista {
-    width: 260px;
-    height: 160px; 
-    object-fit: cover; 
-    object-position: center; 
-    
-    background-color: #D3D3D3; 
-    border: 1px solid rgba(0, 0, 0, 0.05); 
-    border-radius: 4px; 
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
-}
-
-/* --- EL NOMBRE Y LA LÍNEA INFERIOR --- */
-.artista-name {
-    margin-top: 15px;
-    font-family: 'Playfair Display', serif;
-    font-size: 1.5rem;
-    color: #000;
-    text-align: center;
-    width: 100%;
-    line-height: 1.2; /* Ayuda a que el texto en varios renglones no se vea tan separado */
- 
-}
-
-/* --- SECCIÓN PRINCIPAL DE ÁLBUMES --- */
-.albumes-favs-seccion {
-    margin-top: 50px;
-    padding: 0 40px;
-    display: flex;
-    flex-direction: column;
-    align-items: center; 
-}
-
-.topAlbumesTitle {
-    font-family: 'Playfair Display', serif;
-    font-size: 2rem;
-    color: #000;
-    margin-bottom: 40px;
-    text-align: center;
-    font-weight: 500;
-}
-
-/* --- EL CONTENEDOR DE LA CUADRÍCULA --- */
-.contenedor-albumesfavs {
-    display: flex;
-    flex-wrap: wrap; 
-    justify-content: center;
-    gap: 80px; 
-    width: 100%;
-    max-width: 1500px; 
-}
-
-/* --- CADA CUADRO DE ÁLBUM INDIVIDUAL --- */
-.cuadro-albumfav {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 200px; 
-}
-
-/* --- EL CUADRADO PERFECTO 1:1 --- */
-.imagen-album {
-    width: 200px;
-    height: 200px; 
-    object-fit: cover; 
-    object-position: center; 
-    
-    background-color: #D3D3D3; 
-    border: 1px solid rgba(0, 0, 0, 0.05); 
-    border-radius: 4px; 
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
-}
-
-/* --- EL NOMBRE Y LA LÍNEA INFERIOR --- */
-.album-name {
-    margin-top: 15px;
-    font-family: 'Playfair Display', serif;
-    font-size: 1.5rem;
-    color: #000;
-    text-align: center;
-    width: 100%;
-    line-height: 1.2;
-    
-}
-
-/* --- MAIN SONGS SECTION --- */
+/* =========================================
+   1. CONTENEDORES UNIVERSALES
+   ========================================= */
+/* Aplica para las tres secciones principales */
+.artistas-favs,
+.albumes-favs-seccion,
 .canciones-favs-seccion {
-    margin-top: 50px;
+    margin-top: 60px;
     padding: 0 40px;
     display: flex;
     flex-direction: column;
     align-items: center; 
+}
+
+/* Margen extra solo para el final de la página */
+.canciones-favs-seccion {
     margin-bottom: 120px;
 }
 
+/* Títulos universales para las tres secciones */
+.topArtistasTitle,
+.topAlbumesTitle,
 .topCancionesTitle {
     font-family: 'Playfair Display', serif;
     font-size: 2rem;
     color: #000;
-    margin-bottom: 40px;
+    margin-bottom: 50px; /* Un poco más de aire debajo del título */
     text-align: center;
     font-weight: 500;
 }
 
-/* --- SONG GRID CONTAINER --- */
+/* LA CUADRÍCULA MAESTRA (Aplica para artistas, álbumes y canciones) */
+.contenedor-artistasfavs,
+.contenedor-albumesfavs,
 .contenedor-cancionesfavs {
     display: flex;
     flex-wrap: wrap; 
     justify-content: center; 
-    gap: 90px; 
+    gap: 70px; /* 👈 EL GAP ÚNICO PARA TODAS LAS FILAS */
     width: 100%;
-    max-width: 1500px; 
+    max-width: 1200px; /* Límite parejo para que no se estiren de más en monitores grandes */
 }
 
-/* --- INDIVIDUAL SONG ITEM CONTAINER --- */
+/* =========================================
+   2. LAS CAJAS INDIVIDUALES (Homologadas)
+   ========================================= */
+/* Todas las cajas miden exactamente lo mismo de ancho para crear columnas invisibles */
+.cuadro-artistafav,
+.cuadro-albumfav,
 .cuadro-cancionfav {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    width: 180px; /* Igualado al tamaño de la imagen para que la línea mida lo mismo */
+    align-items: center; 
+    position: relative;
+    width: 170px; /* 👈 EL ANCHO ÚNICO MAESTRO */
+    gap: 16px; /* Separación estándar entre imagen y texto */
 }
 
-/* --- THE CIRCULAR IMAGE --- */
-.imagen-cancion {
-    width: 180px;
-    height: 180px; 
-    
-    border-radius: 50%; 
+/* =========================================
+   3. LAS FORMAS (Rectángulo, Cuadro y Círculo)
+   ========================================= */
+   
+/* =========================================
+   ARTISTAS (Cuadrado Suave con Borde Premium)
+   ========================================= */
+.imagen-artista {
+    width: 100%; /* Toma los 170px de la caja */
+    aspect-ratio: 1 / 1; /* 👈 ¡EL CAMBIO CLAVE! Cuadrado perfecto */
     object-fit: cover; 
     object-position: center; 
-    
     background-color: #D3D3D3; 
-    border: 1px solid rgba(0, 0, 0, 0.05); 
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
+    
+    /* DIFERENCIADORES CONTRA EL ÁLBUM: */
+    border-radius: 24px; /* Esquinas muy redondeadas, suaviza la forma del cuadro */
+    border: 2px solid #000000; /* Línea negra interna */
+    outline: 1px solid rgba(0, 0, 0, 0.15); /* Línea gris exterior sutil para dar relieve */
+    
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1); 
+    transition: transform 0.2s ease, box-shadow 0.2s ease; 
 }
 
-/* --- THE SONG NAME --- */
+.imagen-artista:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+    border-color: #555555; /* El borde se ilumina un poco al pasar el mouse */
+}
+
+/* =========================================
+   ÁLBUMES (Cuadrado Rígido Estilo Vinilo)
+   ========================================= */
+.imagen-album {
+    width: 100%; 
+    aspect-ratio: 1 / 1; 
+    object-fit: cover; 
+    object-position: center; 
+    background-color: #D3D3D3; 
+    
+    /* DIFERENCIADORES CONTRA EL ARTISTA: */
+    border-radius: 4px; /* Esquinas casi rectas, formato clásico de disco */
+    border: 1px solid rgba(0, 0, 0, 0.08); /* Sin bordes pesados, solo una separación sutil */
+    
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.imagen-album:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.18);
+}
+
+/* C. CANCIONES (Círculos 1:1) */
+.imagen-cancion {
+    width: 100%; /* Toma los 170px */
+    aspect-ratio: 1 / 1;
+    border-radius: 50%; /* Lo hace un círculo perfecto */
+    object-fit: cover; 
+    object-position: center; 
+    background-color: #D3D3D3; 
+    border: 1px solid rgba(0, 0, 0, 0.05); 
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.imagen-cancion:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+}
+
+/* =========================================
+   4. TEXTOS DE LOS ÍTEMS
+   ========================================= */
+.artista-name,
+.album-name,
 .cancion-name {
-    margin-top: 15px;
+    margin: 0;
     font-family: 'Playfair Display', serif;
-    font-size: 1.5rem;
-    color: #000;
+    font-size: 1.3rem; /* Un poco más sutil para no robar atención a la imagen */
+    color: #111111;
     text-align: center;
     width: 100%;
-    line-height: 1.2;
+    line-height: 1.3;
     
-  
+    /* Corta a 2 líneas si el nombre es kilométrico */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
+
+
+
 .btn-eliminar {
     position: relative;
     top: -5px; /* Sube un poco la tachuela */
@@ -512,12 +479,14 @@
 
 /* --- SECCIÓN PRINCIPAL OSCURA --- */
 .bucle-mes-usuario {
-    padding: 80px 20px;
-    background-color: #111111; /* Fondo oscuro elegante */
+    padding: 80px 20px 20px 20px;
+    background-color: #0a0a0a; 
     color: #ffffff;
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin: 0; /* 👈 ESTO QUITA LOS BORDES EXTRA */
+    width: 100%;
 }
 
 .bucleMesTitle {
@@ -612,4 +581,72 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-align: left;
+}
+
+
+/* --- MARCA DE AGUA (El truco ninja) --- */
+.marca-agua-oculta {
+    display: none; /* ¡Oculto en el navegador! */
+    text-align: center;
+    color: #ffffff;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    margin-top: -40px; /* Sube para pegarse un poco al título */
+    margin-bottom: 50px;
+    letter-spacing: 1px;
+}
+
+/* --- CONTENEDOR DEL BOTÓN DE COMPARTIR --- */
+.contenedor-btn-exportar {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 60px;
+    width: 100%;
+    /* Eliminamos el background-color fijo de aquí */
+}
+
+/* --- EL BOTÓN ELEGANTE --- */
+.btn-exportar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: transparent;
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 12px 28px;
+    border-radius: 30px; /* Estilo píldora moderna */
+    font-size: 1rem;
+    font-weight: 500;
+    font-family: 'Inter', sans-serif;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-exportar:hover {
+    background-color: #ffffff;
+    color: #000000; /* Efecto inverso al pasar el mouse */
+    transform: scale(1.05);
+}
+
+/* Variante para fondo claro (líneas negras, texto negro) */
+.btn-exportar-claro {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: transparent;
+    color: #000000;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    padding: 12px 28px;
+    border-radius: 30px;
+    font-size: 1rem;
+    font-weight: 500;
+    font-family: 'Inter', sans-serif;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-exportar-claro:hover {
+    background-color: #000000;
+    color: #ffffff; /* Se invierte al pasar el mouse */
+    transform: scale(1.05);
 }

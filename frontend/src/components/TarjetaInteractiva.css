@@ -1,0 +1,189 @@
+/* El contenedor es la "ventana". Todo lo que salga de sus bordes se oculta. */
+.tarjeta-contenedor {
+    position: relative;
+    width: 170px;
+    aspect-ratio: 1 / 1; /* Cuadrado perfecto */
+    border-radius: 6px;
+    overflow: hidden; /* ¡Clave! Oculta la barra cuando está abajo */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+}
+
+.tarjeta-imagen {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+/* La barra oscura con estilo Glassmorphism */
+.tarjeta-overlay-botones {
+    position: absolute;
+    bottom: -50px; /* Escondida por debajo de la tarjeta inicialmente */
+    left: 0;
+    width: 100%;
+    height: 45px;
+    
+    /* Tu toque estético: Cristal oscuro */
+    background: rgba(10, 10, 10, 0.7);
+    backdrop-filter: blur(8px);
+    
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    transition: bottom 0.3s cubic-bezier(0.25, 1, 0.5, 1); /* Animación más suave */
+}
+
+/* ¡LA REGLA DE ORO DEL HOVER! */
+.tarjeta-contenedor:hover .tarjeta-overlay-botones {
+    bottom: 0;
+}
+
+/* Pequeño zoom a la imagen al pasar el mouse para más inmersión */
+.tarjeta-contenedor:hover .tarjeta-imagen {
+    transform: scale(1.05);
+}
+
+/* Diseño limpio para los botones transparentes */
+.btn-interaccion {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.btn-interaccion:hover {
+    transform: scale(1.15); /* El icono crece un poquito al apuntarlo */
+    filter: brightness(1.2);
+}
+
+/* Clases dinámicas para controlar la forma según si es álbum o canción */
+.forma-cuadrado {
+    border-radius: 8px; /* Estilo clásico de álbum (un poco más curvo, más moderno) */
+}
+
+.forma-circulo {
+    border-radius: 50%; /* Lo convierte en un disco/círculo perfecto */
+}
+
+.forma-circulo .tarjeta-overlay-botones {
+    justify-content: center;
+    gap: 15px; /* Este valor controla qué tan separados están entre sí */
+}
+
+
+/* ============================================================
+   🎛️ MENÚ CONTEXTUAL MODERNO (3 PUNTOS)
+   ============================================================ */
+
+/* Contenedor relativo para que el menú absoluto sepa dónde anclarse */
+.contenedor-opciones-extra {
+  position: relative;
+  display: inline-block;
+}
+
+/* El cuadro flotante estilo Spotify Premium */
+.cuadro-flotante-opciones {
+  position: absolute;
+  top: 120%;            /* Aparece justo debajo de los 3 puntos */
+  right: -10px;         /* Alineado ligeramente a la derecha */
+  background-color: #181818; /* Negro profundo moderno */
+  border: 1px solid rgba(255, 255, 255, 0.08); /* Borde súper sutil de cristal */
+  border-radius: 8px;
+  box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.7);
+  padding: 8px 0;       /* Padding vertical para que los items respiren */
+  min-width: 230px;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  
+  /* Animación de entrada suave */
+  animation: abrirMenu 0.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  transform-origin: top right;
+}
+
+@keyframes abrirMenu {
+  from { opacity: 0; transform: scale(0.95) translateY(-10px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* ============================================================
+   ⭐ SISTEMA DE ESTRELLAS Y SEPARADORES
+   ============================================================ */
+.seccion-calificacion {
+  padding: 10px 16px 14px 16px;
+  
+  /* 👇 AQUÍ ESTÁ LA LÍNEA BLANCA SEMITRANSPARENTE SEPARADORA */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15); 
+  margin-bottom: 4px;
+}
+
+.titulo-estrellas {
+  color: rgba(255, 255, 255, 0.6); /* Gris claro muy elegante */
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+  font-family: 'Inter', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+.estrellas-contenedor {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  justify-content: center;
+}
+
+.estrella-click {
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #1DB954; /* Verde Spotify */
+}
+
+.icono-estrella-calif {
+  font-size: 1.4rem;
+  pointer-events: none; /* CRÍTICO para las medias estrellas */
+  transition: transform 0.1s ease, color 0.2s ease;
+  filter: drop-shadow(0 2px 4px rgba(29, 185, 84, 0.3)); /* Resplandor verde tenue */
+}
+
+.estrella-click:active .icono-estrella-calif {
+  transform: scale(0.8); /* Efecto de "botón presionado" */
+}
+
+
+/* ============================================================
+   🖱️ BOTONES DEL MENÚ (Añadir a lista, Créditos...)
+   ============================================================ */
+.opcion-menu {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.85);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 400;
+  text-align: left;
+  padding: 12px 18px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: 100%;
+}
+
+.opcion-menu:hover {
+  background-color: rgba(255, 255, 255, 0.1); /* Efecto de selección gris claro */
+  color: #ffffff;
+}
+
+/* ============================================================
+   🔓 MAGIA PARA LIBERAR EL MENÚ DEL CORTE DE LA TARJETA
+   ============================================================ */
+body .tarjeta-contenedor.menu-abierto {
+  overflow: visible !important; 
+  z-index: 9999 !important; 
+}

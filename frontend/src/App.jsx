@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import Reproductor from './/components/Reproductor';
 import './App.css';
-import ImagenVinilos from './assets/Albumes_Inicio.avif';
 import LogoSpotify from './assets/Logo_Spotify.svg';
 import Albumes from './pages/Albumes';
 import Canciones from './pages/Canciones';
@@ -163,8 +162,8 @@ function App() {
     <>
       <Routes>
         <Route path="/" element={<Inicio username={usuario} fotoPerfil={fotoPerfil} topArtistas={topArtistas} topAlbumes={topAlbumes} topCanciones={topCanciones} />} />
-        <Route path="/albumes" element={<Albumes username={usuario} fotoPerfil={fotoPerfil} nuevosAlbumes={nuevosAlbumes} tokenSpotify={tokenSpotify} />} />
-        <Route path="/canciones" element={<Canciones username={usuario} fotoPerfil={fotoPerfil} tokenSpotify={tokenSpotify} cancionesFavs={cancionesFavs} />} />
+        <Route path="/albumes" element={<Albumes username={usuario} fotoPerfil={fotoPerfil} nuevosAlbumes={nuevosAlbumes} tokenSpotify={tokenSpotify}  id_echohead={idEchohead}/>} />
+        <Route path="/canciones" element={<Canciones username={usuario} fotoPerfil={fotoPerfil} tokenSpotify={tokenSpotify} cancionesFavs={cancionesFavs} id_echohead={idEchohead} />} />
         <Route path="/perfil" element={<Perfil username={usuario} fotoPerfil={fotoPerfil} tokenSpotify={tokenSpotify} id_echohead={idEchohead} />} />
       </Routes>
       <Reproductor tokenSpotify={tokenSpotify} />
@@ -174,20 +173,25 @@ function App() {
 
   return (
     <div className='login-echohead'>
-      <div className='login-imagen'>
-        <img src={ImagenVinilos} alt='Imagen vinilos' className='imagen-fondo' />
-      </div>
-      <div className='contenido-login'>
-        <h1 className='titulo-echohead'>EchoHead</h1>
-        <h2 className='hola'>Hola amante de la musica!</h2>
-        <p className='texto'>Inicia sesión con tu cuenta de Spotify</p>
-        <div className='spoify-logo'>
-           <img src={LogoSpotify} alt='Logo Spotify' className='spotify-img' />
+      {/* El gradiente oscuro ahora empuja de izquierda a derecha */}
+      <div className='capa-oscura-lateral'></div>
+      
+      <div className='contenido-login-lateral'>
+        <div className='ui-flotante'>
+            <h1 className='titulo-echohead'>EchoHead</h1>
+            <p className='texto-subtitulo'>Tu música, tu estética, tu bucle.</p>
+            
+            <h2 className='hola'>Descubre tu ritmo</h2>
+            <p className='texto'>Sincroniza Spotify para revelar tus estadísticas, artistas favoritos y generar tu perfil musical definitivo.</p>
+            
+            <button className='login-button interactivo' onClick={handleLogin}>
+                <img src={LogoSpotify} alt='Logo Spotify' className='spotify-icono-btn' />
+                Conectar con Spotify
+            </button>
         </div>
-        <button className='login-button' onClick={handleLogin}>Conectar</button>
       </div>
     </div>
-  );
+);
 }
 
 export default App;

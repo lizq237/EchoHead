@@ -1,5 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
 
 * {
   box-sizing: border-box;
@@ -7,111 +7,155 @@
   padding: 0;
 }
 
+/* --- FONDO INMERSIVO Y ASIMÉTRICO --- */
 .login-echohead {
+  position: relative;
   display: flex;
-  /* CAMBIO CLAVE: min-height en lugar de height fijo, y 100% en lugar de 100vw */
   min-height: 100vh;
   width: 100%;
-  background-color: #DBDADA;
+  background-image: url('https://images.unsplash.com/photo-1570072039709-769161010471?q=80&w=1332&auto=format&fit=crop');
+  background-size: cover;
+  /* Enfocamos la cámara a la izquierda para asegurar que los vinilos se vean */
+  background-position: center left; 
+  background-attachment: fixed; 
 }
 
-.login-imagen {
-  /* Al poner flex: 1 1 50%, nos aseguramos de que siempre tome la mitad y no se deje "aplastar" por el texto */
-  flex: 1 1 50%; 
-  overflow: hidden;
-}
-
-.imagen-fondo {
+/* GRADIENTE LATERAL: 
+   100% transparente a la izquierda (vinilos) -> Negro profundo a la derecha (texto) */
+.capa-oscura-lateral {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover; 
-  object-position: center; 
+  background: linear-gradient(to right, rgba(0,0,0,0) 10%, rgba(0,0,0,0.6) 50%, rgba(10,10,10,0.95) 100%);
+  z-index: 1;
 }
 
-.contenido-login {
-  flex: 1 1 50%;
+/* --- CONTENEDOR ALINEADO A LA DERECHA --- */
+.contenido-login-lateral {
+  position: relative;
+  z-index: 2;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  justify-content: flex-end; /* 👈 Empuja la UI hacia la derecha de la pantalla */
   align-items: center;
-  padding: 5%; /* Porcentaje en lugar de px para que respire al hacer zoom */
-  font-family: 'Times New Roman', Times, serif;
-  text-align: center; /* Asegura que todo el texto interior se centre */
+  width: 100%;
+  padding: 0 8%; /* Margen lateral para que no pegue con la orilla del monitor */
 }
 
+/* --- INTERFAZ FLOTANTE --- */
+.ui-flotante {
+  max-width: 450px;
+  text-align: left; /* Alineación limpia como de revista */
+  /* Animación de entrada suave desde la derecha */
+  animation: slideInRight 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  opacity: 0;
+  transform: translateX(40px);
+}
+
+@keyframes slideInRight {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* --- TIPOGRAFÍAS --- */
 .titulo-echohead {
-  /* CLAMP: (Mínimo, Ideal, Máximo) - Se ajusta solo al hacer zoom o cambiar pantalla */
-  font-size: clamp(4rem, 6vw, 8rem);
-  font-family: 'Fredoka One', cursive;
-  font-weight: 500;
-  margin-bottom: 0;
-  color: #000;
+  font-family: 'Playfair Display', serif;
+  font-size: 4.5rem; /* Un poco más grande para impactar */
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -2px;
+  margin-bottom: 0px;
+}
+
+.texto-subtitulo {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  color: #1DB954; /* 👈 Usamos el verde de Spotify como acento sutil */
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 60px;
 }
 
 .hola {
-  font-size: clamp(2.5rem, 4vw, 5rem);
-  font-weight: normal;
   font-family: 'Playfair Display', serif;
-  margin-top: 50px;
-  margin-bottom: 0;
-  color: #000;
+  font-size: 2.2rem;
+  font-weight: 400;
+  color: #ffffff;
+  margin-bottom: 15px;
 }
 
 .texto {
-  font-size: clamp(1.5rem, 2.5vw, 3rem);
-  margin-top: 30px;
-  margin-bottom: 40px;
-  font-family: 'Playfair Display', serif;
-  color: #333;
+  font-family: 'Inter', sans-serif;
+  font-size: 1.05rem;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.6;
+  margin-bottom: 45px;
 }
 
-.spoify-logo {
-  margin-top: 20px;
-  margin-bottom: 50px;
-}
-
-.spotify-img {
-  /* Un pequeño clamp para la imagen de Spotify también ayuda */
-  width: clamp(100px, 10vw, 150px);
-  height: auto; 
-}
-
-.login-button {
-  background-color: #121212;
-  color: white;
-  padding: clamp(12px, 2vw, 15px) clamp(40px, 5vw, 60px);
-  font-size: clamp(1.5rem, 2vw, 2.5rem);
+/* --- BOTÓN SÚPER INTERACTIVO --- */
+.login-button.interactivo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  background-color: #ffffff;
+  color: #000000;
+  padding: 16px 36px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
   border: none;
-  border-radius: 80px;
+  border-radius: 50px; 
   cursor: pointer;
-  font-family: 'Playfair Display', serif;
-  transition: background-color 0.3s ease; /* Transición suave para el hover */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  /* Transición súper fluida para el efecto de escala */
+  transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-.login-button:hover {
-  background-color: #58cd3b;
+.spotify-icono-btn {
+  width: 24px;
+  height: 24px;
+  filter: brightness(0); 
+  transition: all 0.4s ease;
 }
 
-/* El media query ahora solo se encarga de apilar los elementos en celulares */
-@media (max-width: 768px) {
-  .login-echohead {
-    flex-direction: column;
-  }
+/* Efectos al pasar el mouse */
+.login-button.interactivo:hover {
+  background-color: #1DB954; 
+  color: #ffffff;
+  /* El botón "flota" hacia arriba y crece un poquito */
+  transform: translateY(-5px) scale(1.02);
+  /* Resplandor verde en la sombra */
+  box-shadow: 0 15px 30px rgba(29, 185, 84, 0.4);
+}
 
-  .login-imagen {
-    flex: none;
-    height: 40vh; /* Le damos el 40% de la pantalla en móvil a la imagen */
-    width: 100%;
-  }
+.login-button.interactivo:hover .spotify-icono-btn {
+  filter: brightness(1); 
+}
 
-  .contenido-login {
-    flex: none;
-    height: 60vh; /* Y el 60% al contenido */
-    padding: 20px;
+/* --- RESPONSIVIDAD (Celulares y Tablets) --- */
+@media (max-width: 900px) {
+  .capa-oscura-lateral {
+    /* En pantallas pequeñas, el gradiente va de abajo hacia arriba para poder leer */
+    background: linear-gradient(to top, rgba(10,10,10,1) 10%, rgba(10,10,10,0.8) 60%, rgba(0,0,0,0.1) 100%);
+  }
+  
+  .contenido-login-lateral {
     justify-content: center;
+    align-items: flex-end; /* Bajamos el texto hacia la base */
+    padding: 40px 20px;
   }
-
-  .hola {
-    margin-top: 20px;
+  
+  .ui-flotante {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .titulo-echohead {
+    font-size: 3.5rem;
   }
 }

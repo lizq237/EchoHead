@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -13,35 +14,29 @@ body {
   overflow-x: hidden; 
 }
 
-
 .busqueda-cancion {
   display: flex;
   flex-direction: row;
   align-items: center; 
   margin-top: 50px;
   justify-content: center;
-  
 }
 
 .buscar {
-  font-family: 'Playfair Display';
+  font-family: 'Playfair Display', serif;
   font-size: 1.5rem;
   margin: 0; 
   margin-right: 15px; 
-
 }
 
 .input-cancion {
   width: 300px;
-  padding: 12px 20px;  font-size: 1.4rem;
-  border: 1px solid #999; 
+  padding: 12px 20px; 
+  font-size: 1.4rem;
   background-color: transparent; 
-  outline: none; 
   font-family: 'Playfair Display', serif;
-  background-color: transparent; 
   border: 2px solid #000; 
   outline: none; 
-
   box-shadow: 0 4px 10px rgba(0.07, 0, 0, 0.08);
 }
 
@@ -49,26 +44,77 @@ body {
   border-color: #000;
 }
 
-.canciones-favs{
+.canciones-favs {
   font-family: 'Playfair Display', serif;
   font-weight: 400;
   font-size: 2.0rem;
   color: #000;
 }
 
-
-.canciones-favoritos{
+.canciones-favoritos {
   margin-top: 50px;
   padding: 30px 100px;
 }
 
+/* ============================================================
+   🎯 CUADRÍCULA DE CANCIONES (CUADRADOS PERFECTOS RECTOS)
+   ============================================================ */
+.contenedor-canciones {  /* 👈 ESTE ES EL NOMBRE QUE FALTABA CAMBIAR */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; 
+  gap: 50px;              
+  margin-top: 40px;
+  padding-bottom: 60px;
+  width: 100%;
+}
+.cuadro-cancion {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+  /* 🔒 LA CAMISA DE FUERZA PARA QUE NO SE COMA LA PANTALLA */
+  width: 220px !important;
+  min-width: 220px !important;
+  max-width: 220px !important;
+  flex: 0 0 220px !important; /* Le dice a Flexbox: "No lo estires ni lo encojas" */
+  
+  text-decoration: none;
+}
+
+/* 🔒 Candado de tamaño: Cuadrado de 220x220, esquinas 100% rectas */
+.cuadro-cancion .tarjeta-contenedor {
+  width: 220px !important;      
+  height: 220px !important;     
+  max-width: 220px !important;
+  max-height: 220px !important;
+  border-radius: 50% !important; /* 📐 Esquinas totalmente rectas */
+  overflow: hidden !important;
+  position: relative !important;
+  display: block !important;
+  border: none !important;       /* ❌ Sin bordes extraños */
+  outline: none !important;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.cuadro-cancion .tarjeta-imagen {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  display: block !important;
+  border-radius: 50% !important; 
+  border: none !important;       
+}
+
+/* Mantenemos tus medidas originales de fuente (1.6rem y 1.4rem) */
 .songname {
   margin-top: 15px; 
   text-align: center;
-  font-family: 'Playfair Display';
+  font-family: 'Playfair Display', serif;
   font-size: 1.6rem;
   line-height: 1.4rem; 
+  color: #000;
+  width: 100%;
+  max-width: 220px; /* Evita que los nombres largos rompan el grid */
+  word-wrap: break-word;
 }
-
-
-

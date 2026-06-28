@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -13,36 +14,30 @@ body {
   overflow-x: hidden; 
 }
 
-
 .busqueda-album {
   display: flex;
   flex-direction: row;
   align-items: center; 
   margin-top: 50px;
   justify-content: center;
-  
-  
 }
 
 .buscar {
-  font-family: 'Playfair Display';
+  font-family: 'Playfair Display', serif;
   font-size: 1.5rem;
   margin: 0; 
   margin-right: 15px; 
-
 }
 
 .input-album {
   width: 300px;
-  padding: 12px 20px;  font-size: 1.4rem;
+  padding: 12px 20px; 
+  font-size: 1.4rem;
   border: 1px solid #999; 
   background-color: transparent; 
   outline: none; 
   font-family: 'Playfair Display', serif;
-  background-color: transparent; 
   border: 2px solid #000; 
-  outline: none; 
-
   box-shadow: 0 4px 10px rgba(0.07, 0, 0, 0.08);
 }
 
@@ -50,26 +45,70 @@ body {
   border-color: #000;
 }
 
-.albumes-favs{
+.albumes-favs {
   font-family: 'Playfair Display', serif;
   font-weight: 400;
   font-size: 2.0rem;
   color: #000;
 }
 
-
-.albumes-favoritos{
+.albumes-favoritos {
   margin-top: 50px;
   padding: 30px 100px;
 }
 
+/* ============================================================
+   🎯 CUADRÍCULA MÁS GRANDE, CENTRADA Y SIN BORDES
+   ============================================================ */
+.contenedor-cuadros {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; 
+  gap: 50px;              /* Espaciado uniforme entre las tarjetas */
+  margin-top: 40px;
+  padding-bottom: 60px;
+  width: 100%;
+}
+
+.cuadro-album {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 220px;           /* Subimos el bloque para adaptarlo al nuevo tamaño */
+  text-decoration: none;
+}
+
+/* 🔒 Candado de tamaño: Forzamos un cuadrado perfecto más grande y eliminamos bordes */
+.cuadro-album .tarjeta-contenedor {
+  width: 220px ;      /* Incrementado de 180px a 220px */
+  height: 220px ;     /* Alto idéntico para asegurar el cuadrado perfecto */
+  max-width: 220px ;
+  max-height: 220px ;
+  overflow: hidden;
+  position: relative ;
+  display: block ;
+  border: none ;      
+  outline: none ;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.cuadro-album .tarjeta-imagen {
+  width: 100% ;
+  height: 100% ;
+  object-fit: cover ;
+  display: block ;
+  border: none ;      
+}
+
+/* Texto alineado y ajustado a la medida de la portada */
 .albumname {
   margin-top: 15px; 
   text-align: center;
-  font-family: 'Playfair Display';
-  font-size: 1.6rem;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
   line-height: 1.4rem; 
+  color: #000;
+  width: 100%;
+  max-width: 220px;             
+  word-wrap: break-word;
 }
-
-
-
