@@ -50,7 +50,7 @@ CREATE TABLE interacciones (
     es_escuchado Boolean default false, -- boton de la palomita
     es_favorito Boolean default false, -- boton del corazon
     es_pendiente Boolean default false, --boton de agregar a pendientes
-    calificacion int check (calificacion >=0 AND calificacion<=5), --estrellas, puede ser null si no le pica
+    calificacion numeric (3,1), --estrellas, puede ser null si no le pica
     descripcion text, --texto de la resena, puede ser null
     fecha_interaccion timestamp default current_timestamp,
     UNIQUE (id_echohead, spotify_id)

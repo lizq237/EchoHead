@@ -1,0 +1,33 @@
+/* --- SUB-MENÚ SWITCH DE FAVORITOS --- */
+.switch-favoritos {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 25px;
+    border-bottom: 1px solid #333;
+    padding-bottom: 10px;
+}
+
+.switch-favoritos button {
+    background: none;
+    border: none;
+    color: #888;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 5px 10px;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.switch-favoritos button:hover {
+    color: #fff;
+}
+
+/* El botón que está seleccionado */
+.switch-favoritos button.activo {
+    color: #111111; /* O el color que resalte en tu tema */
+    border-bottom: 2px solid #111111; 
+    font-weight: bold;
+}

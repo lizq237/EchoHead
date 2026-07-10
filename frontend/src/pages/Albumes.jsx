@@ -92,9 +92,12 @@ function Albumes({ username, fotoPerfil, nuevosAlbumes, tokenSpotify, id_echohea
 
                         const albumFusionado = {
                             ...safeAlbum,
-                            es_escuchado: interaccionGuardada.es_escuchado === true,
                             es_favorito: interaccionGuardada.es_favorito === true,
-                            albumImg: safeAlbum.albumImage 
+                            es_escuchado: interaccionGuardada.es_escuchado === true,
+                            es_pendiente: interaccionGuardada.es_pendiente === true,
+                            calificacion: interaccionGuardada.calificacion || 0,
+                            descripcion:interaccionGuardada.descripcion || "",
+                            albumImg: safeAlbum.albumImage ,
                         };
 
                         return (

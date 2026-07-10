@@ -254,10 +254,9 @@ app.post('/usuarios/interacciones', async (req, res) => {
             descripcion || null
         ];
 
-        console.log("DEBUG - Datos a guardar en BD:", {
-          spotify_id: spotify_id,
-          es_escuchado: es_escuchado,
-          es_favorito: es_favorito
+        console.log("💻 2. EL SERVIDOR NODE RECIBIÓ:", { 
+            cancion: nombre, 
+            pendiente: es_pendiente
         });
         await pool.query(query, values);
         
@@ -275,7 +274,7 @@ app.get('/api/perfil/:id_echohead/albumes', async (req, res) => {
     const { id_echohead } = req.params;
     try {
         const query = `
-            SELECT a.*, i.es_favorito, i.es_escuchado
+            SELECT a.*, i.es_favorito, i.es_escuchado, i.es_pendiente, i.calificacion, i.descripcion
             FROM top_albumes a
             LEFT JOIN interacciones i 
                 ON a.album_spotify_id = i.spotify_id AND a.user_id = i.id_echohead
@@ -289,7 +288,10 @@ app.get('/api/perfil/:id_echohead/albumes', async (req, res) => {
             albumName: row.album_name,
             albumImg: row.album_img,
             es_favorito: row.es_favorito === true,
-            es_escuchado: row.es_escuchado === true
+            es_escuchado: row.es_escuchado === true,
+            es_pendiente: row.es_pendiente === true,
+            calificacion:row.calificacion ? parseFloat(row.calificacion):0,
+            descripcion:row.descripcion || ""
         }));
         
         res.json(albumesMapeados);
@@ -305,7 +307,7 @@ app.get('/api/perfil/:id_echohead/canciones', async (req, res) => {
     const { id_echohead } = req.params;
     try {
         const query = `
-            SELECT c.*, i.es_favorito, i.es_escuchado
+            SELECT c.*, i.es_favorito, i.es_escuchado, i.es_pendiente, i.calificacion, i.descripcion
             FROM top_canciones c
             LEFT JOIN interacciones i 
                 ON c.song_spotify_id = i.spotify_id AND c.user_id = i.id_echohead
@@ -319,7 +321,10 @@ app.get('/api/perfil/:id_echohead/canciones', async (req, res) => {
             cancionName: row.song_name,
             cancionImg: row.song_img,
             es_favorito: row.es_favorito === true,
-            es_escuchado: row.es_escuchado === true
+            es_escuchado: row.es_escuchado === true,
+            es_pendiente: row.es_escuchado === true,
+            calificacion: row.calificacion ? parseFloat(row.calificacion) : 0,
+            descripcion:row.descripcion || ""
         }));
         
         res.json(cancionesMapeadas);
@@ -333,14 +338,144 @@ app.get('/api/perfil/:id_echohead/canciones', async (req, res) => {
 app.get('/api/interacciones/:id_echohead', async (req, res) => {
     const { id_echohead } = req.params;
     try {
-        const resultado = await pool.query('SELECT spotify_id, es_escuchado, es_favorito FROM interacciones WHERE id_echohead = $1', [id_echohead]);
-        res.json(resultado.rows);
+        const resultado = await pool.query('SELECT spotify_id, nombre, imagen_url, tipo, es_escuchado, es_favorito , es_pendiente, calificacion, descripcion FROM interacciones WHERE id_echohead = $1', [id_echohead]);
+        const interaccionesMapeadas = resultado.rows.map(row => ({
+            spotify_id: row.spotify_id,
+            nombre:row.nombre,
+            imagen_url:row.imagen_url,
+            tipo:row.tipo,
+            es_escuchado: row.es_escuchado === true,
+            es_favorito: row.es_favorito === true,
+            es_escuchado: row.es_escuchado === true,
+            es_pendiente: row.es_pendiente === true,
+            calificacion: row.calificacion ? parseFloat(row.calificacion) : 0,
+            descripcion: row.descripcion || ""
+        }));
+        res.json(interaccionesMapeadas);
     } catch (error) {
         console.error("Error al obtener todas las interacciones:", error);
         res.status(500).json({ error: "Error en el servidor" });
     }
 });
 
+
+// ====================================================
+// RUTAS DEL SISTEMA DE SEGUIDORES (AMIGOS)
+// ====================================================
+
+// 1. Buscar usuarios por nombre (Para la barra de búsqueda)
+app.get('/api/usuarios/buscar', async (req, res) => { // 👈 Corregido a /usuarios/
+    const { q } = req.query; 
+    if (!q) return res.json([]);
+
+    try {
+        const query = `
+            SELECT id_echohead, nombre, foto_perfil
+            FROM users /* 👈 Corregido a "users", que es tu tabla real */
+            WHERE nombre ILIKE $1 
+            LIMIT 10;
+        `;
+        const values = [`%${q}%`];
+        const result = await pool.query(query, values);
+        
+        res.json(result.rows);
+    } catch (error) {
+        console.error("Error al buscar usuarios:", error);
+        res.status(500).json({ error: "Error al buscar usuarios" });
+    }
+});
+
+// 2. Seguir a un usuario (Crear la relación)
+app.post('/api/seguidores', async (req, res) => {
+    const { seguidor_id, seguido_id } = req.body;
+    
+    try {
+        const query = `
+            INSERT INTO seguidores (seguidor_id, seguido_id)
+            VALUES ($1, $2)
+            ON CONFLICT ON CONSTRAINT uq_seguidor_seguido DO NOTHING; 
+        `;
+        await pool.query(query, [seguidor_id, seguido_id]);
+        res.status(200).json({ mensaje: "Usuario seguido con éxito" });
+    } catch (error) {
+        console.error("Error al seguir al usuario:", error);
+        res.status(500).json({ error: "Error interno del servidor" });
+    }
+});
+
+// 3. Dejar de seguir a un usuario (Romper la relación)
+app.delete('/api/seguidores', async (req, res) => {
+    const { seguidor_id, seguido_id } = req.body;
+    
+    try {
+        const query = `
+            DELETE FROM seguidores 
+            WHERE seguidor_id = $1 AND seguido_id = $2;
+        `;
+        await pool.query(query, [seguidor_id, seguido_id]);
+        res.status(200).json({ mensaje: "Dejaste de seguir al usuario" });
+    } catch (error) {
+        console.error("Error al dejar de seguir:", error);
+        res.status(500).json({ error: "Error interno del servidor" });
+    }
+});
+
+
+// 4. Obtener la lista de a quién sigo (Para curar la amnesia de React)
+app.get('/api/usuarios/:id_echohead/siguiendo', async (req, res) => {
+    const { id_echohead } = req.params;
+    try {
+        const query = `SELECT seguido_id FROM seguidores WHERE seguidor_id = $1`;
+        const result = await pool.query(query, [id_echohead]);
+        
+        // Convertimos el resultado en una lista simple de IDs, ej: ['108', '63']
+        const listaDeSeguidos = result.rows.map(row => row.seguido_id);
+        res.json(listaDeSeguidos);
+    } catch (error) {
+        console.error("Error al obtener lista de seguidos:", error);
+        res.status(500).json({ error: "Error interno" });
+    }
+});
+
+
+
+// 5. Traer perfiles completos de la gente que YO SIGO (Following)
+app.get('/api/usuarios/:id_echohead/lista-siguiendo', async (req, res) => {
+    const { id_echohead } = req.params;
+    try {
+        const query = `
+            SELECT u.id_echohead, u.nombre, u.foto_perfil
+            FROM seguidores s
+            JOIN users u ON s.seguido_id::text = u.id_echohead::text
+            WHERE s.seguidor_id::text = $1;
+        `;
+        const result = await pool.query(query, [id_echohead]);
+        res.json(result.rows);
+    } catch (error) {
+        console.error("Error al obtener lista de siguiendo:", error);
+        res.status(500).json({ error: "Error interno" });
+    }
+});
+
+// 6. Traer perfiles completos de la gente que ME SIGUE (Followers)
+app.get('/api/usuarios/:id_echohead/lista-seguidores', async (req, res) => {
+    const { id_echohead } = req.params;
+    try {
+        const query = `
+            SELECT u.id_echohead, u.nombre, u.foto_perfil
+            FROM seguidores s
+            JOIN users u ON s.seguidor_id::text = u.id_echohead::text
+            WHERE s.seguido_id::text = $1;
+        `;
+        const result = await pool.query(query, [id_echohead]);
+        res.json(result.rows);
+    } catch (error) {
+        console.error("Error al obtener lista de seguidores:", error);
+        res.status(500).json({ error: "Error interno" });
+    }
+});
+
+// 👇 EL CANDADO DEL SERVIDOR SIEMPRE VA HASTA EL FINAL 👇
 const PORT = 8888;
 app.listen(PORT, () => {
   console.log(`Servidor Backend corriendo en http://localhost:${PORT}`);

@@ -1,0 +1,140 @@
+/* Contenedor principal */
+.lista-resenas-layout {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* La Fila Individual */
+.resena-fila {
+    display: flex;
+    gap: 24px;
+    padding: 30px 0;
+    border-bottom: 1px solid #dcdcdc; /* Línea más suave para fondos claros */
+}
+
+.resena-fila:last-child {
+    border-bottom: none;
+}
+
+/* --- PORTADAS Y FORMAS --- */
+.resena-portada {
+    flex-shrink: 0;
+}
+
+.resena-portada img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra moderna */
+}
+
+/* Si es álbum: cuadrado con bordes suaves */
+
+
+/* Si es canción: círculo perfecto */
+.portada-cancion img {
+    border-radius: 50%;
+}
+
+/* --- CONTENIDO Y TEXTOS --- */
+.resena-contenido {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    text-align: left;
+    
+    /* TRUCO FLEXBOX: Evita que textos larguísimos rompan la pantalla */
+    min-width: 0; 
+    width: 100%; 
+}
+
+.resena-titulo {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #111111; /* Negro profundo */
+    margin: 0 0 6px 0;
+}
+
+.resena-metadatos {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.resena-watched {
+    color: #666666; /* Gris oscuro para el "Revisado" */
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* El texto de la reseña */
+.resena-texto {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #333333; /* Gris muy oscuro, mejor para leer que el negro puro */
+    margin: 0;
+    
+    /* 1. MAGIA PARA PALABRAS SIN ESPACIOS ("aaaaaaa") */
+    overflow-wrap: break-word;
+    word-break: break-word;
+    
+    /* 2. MAGIA PARA EL TEXTO LARGO (Pone los "..." automáticamente) */
+    display: -webkit-box;
+    -webkit-line-clamp: 4; /* Mostrará máximo 4 renglones y luego cortará */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* --- MAGIA DE EXPANSIÓN --- */
+
+/* Cuando la reseña tiene la clase 'expandido', quitamos el límite */
+.resena-texto.expandido {
+    -webkit-line-clamp: unset;
+}
+
+/* Contenedor clickeable */
+.contenedor-texto-resena {
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+}
+
+/* Un pequeño efecto al pasar el mouse para que se note que es clickeable */
+.contenedor-texto-resena:hover .resena-texto:not(.expandido) {
+    opacity: 0.8;
+}
+
+/* El texto de "Leer más" */
+.boton-leer-mas {
+    display: inline-block;
+    margin-top: 5px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #666666;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.boton-leer-mas:hover {
+    color: #111111;
+}
+
+/* La Fila Individual */
+.resena-fila {
+    display: flex;
+    gap: 24px;
+    padding: 30px 0;
+    
+    /* 👇 EL SEPARADOR PERFECTO */
+    /* Usamos rgba para que sea una sombra sutil oscura, no un gris sólido que se pierda */
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12); 
+}
+
+/* Opcional pero recomendado: le quitamos la línea a la última reseña de la página para que se vea limpio el final */
+.resena-fila:last-child {
+    border-bottom: none;
+}

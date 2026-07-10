@@ -1,0 +1,144 @@
+/* --- BARRA DE BÚSQUEDA --- */
+.buscador-amigos-contenedor {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.input-buscador-amigos {
+    width: 100%;
+    max-width: 500px;
+    padding: 12px 20px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 25px;
+    background-color: transparent;
+    color: #111;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.input-buscador-amigos:focus {
+    border-color: #111;
+}
+
+/* --- LISTA DE USUARIOS --- */
+.lista-resultados-amigos {
+    display: flex;
+    flex-direction: column;
+    max-width: 600px;
+    margin: 0 auto;
+    gap: 15px;
+}
+
+.tarjeta-usuario-fila {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+}
+
+.tarjeta-usuario-fila:last-child {
+    border-bottom: none;
+}
+
+/* --- FOTO Y NOMBRE --- */
+.info-usuario-izq {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.foto-perfil-amigo {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%; /* Círculo perfecto */
+    object-fit: cover;
+    border: 1px solid rgba(0,0,0,0.1);
+}
+
+.nombre-perfil-amigo {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #111;
+}
+
+/* --- BOTÓN DE SEGUIR --- */
+.btn-seguir {
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    
+    /* Estado por defecto: "Seguir" */
+    background-color: #111;
+    color: #fff;
+    border: 1px solid #111;
+}
+
+.btn-seguir:hover {
+    transform: scale(1.05);
+}
+
+/* Estado activo: "Siguiendo" */
+.btn-seguir.siguiendo {
+    background-color: transparent;
+    color: #111;
+    border: 1px solid #ccc;
+}
+
+.btn-seguir.siguiendo:hover {
+    background-color: #ffe6e6; /* Un tonito rojo sutil al pasar el mouse */
+    color: #cc0000;
+    border-color: #cc0000;
+    content: "Dejar de seguir"; /* Opcional, pero se ve cool */
+}
+
+
+/* --- PESTAÑAS ESTILO LETTERBOXD --- */
+.seccion-listas-guardadas {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.tabs-letterboxd-amigos {
+    display: flex;
+    gap: 20px;
+    border-bottom: 1px solid #dcdcdc; /* Línea gris de abajo */
+    margin-bottom: 20px;
+    padding-bottom: 5px;
+}
+
+.tabs-letterboxd-amigos button {
+    background: none;
+    border: none;
+    padding: 0;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #999; /* Gris para las no activas */
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.tabs-letterboxd-amigos button:hover {
+    color: #666;
+}
+
+/* La pestaña verde activa */
+.tabs-letterboxd-amigos button.tab-activa {
+    color: #1DB954; /* Verde Spotify / Letterboxd */
+    border-bottom: 2px solid #1DB954;
+    padding-bottom: 4px; /* Ajuste para que la línea quede pegada al borde */
+}
+
+/* Ajuste al botón para que sea mayúsculas como en la foto */
+.btn-seguir {
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.5px;
+}

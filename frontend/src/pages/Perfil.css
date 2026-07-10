@@ -56,11 +56,48 @@
 }
 
 .descripcion {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.3rem;
-    color: #333;
-    margin-bottom: 15px; 
-    white-space: nowrap; 
+    font-size: 0.99rem;
+    color: #666666; /* Un gris sutil para que el nombre resalte más */
+    font-family: inherit; /* Obliga a usar la letra moderna de tu app, sin 'patitas' */
+    line-height: 1.5; /* Separa los renglones si escriben mucho */
+    margin: 10px 0 20px 0; /* Da respiro entre el nombre y las estadísticas */
+    max-width: 500px; /* Evita que el texto se estire hasta el infinito */
+    text-align: left;
+}
+
+/* Modo Edición (La caja de texto) */
+.descripcion-editable {
+    width: 100%;
+    max-width: 500px;
+    font-size: 0.95rem;
+    color: #111111;
+    font-family: inherit;
+    line-height: 1.5;
+    
+    /* Diseño de la caja */
+    background-color: rgba(255, 255, 255, 0.6);
+    border: 1px solid #cccccc;
+    border-radius: 8px; /* Bordes redondeaditos */
+    padding: 12px;
+    margin: 10px 0 20px 0;
+    
+    /* Comportamiento */
+    resize: none; /* 🚫 Quita la esquina fea que permite deformar la caja */
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+/* Efecto cuando el usuario le da clic para escribir */
+.descripcion-editable:focus {
+    background-color: #ffffff;
+    border-color: #1DB954; /* Borde verde EchoHead/Spotify */
+    box-shadow: 0 0 0 3px rgba(29, 185, 84, 0.1); /* Un resplandor verde sutil */
+}
+
+/* Estilo para el texto fantasma (placeholder) */
+.descripcion-editable::placeholder {
+    color: #aaaaaa;
+    font-style: italic;
 }
 
 .estadisticas {
@@ -245,16 +282,24 @@
     background-color: #D3D3D3; 
     
     /* DIFERENCIADORES CONTRA EL ARTISTA: */
-    border-radius: 4px; /* Esquinas casi rectas, formato clásico de disco */
     border: 1px solid rgba(0, 0, 0, 0.08); /* Sin bordes pesados, solo una separación sutil */
     
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border-radius: 0 !important;
 }
 
 .imagen-album:hover {
     transform: translateY(-4px);
     box-shadow: 0 14px 28px rgba(0, 0, 0, 0.18);
+    border-radius: 0 !important;
+}
+.tarjeta-contenedor.forma-cuadrado {
+    border-radius: 0 !important;
+}
+
+.tarjeta-imagen {
+    border-radius: 0 !important;
 }
 
 /* C. CANCIONES (Círculos 1:1) */
@@ -650,3 +695,49 @@
     color: #ffffff; /* Se invierte al pasar el mouse */
     transform: scale(1.05);
 }
+
+
+/* --- MENÚ DE NAVEGACIÓN PRINCIPAL ESTILO MODERNO --- */
+
+.menu-navegacion-perfil {
+    display: flex;
+    justify-content: center; /* Centra todas las pestañas */
+    align-items: center;
+    gap: 35px; /* Da un buen respiro entre cada palabra */
+    
+    /* Quitamos la caja gris y dejamos solo una línea sutil abajo */
+    border-bottom: 1px solid #dcdcdc; 
+    margin-bottom: 40px; 
+    margin-top: 40px;
+}
+
+.btn-nav-perfil {
+    background: transparent;
+    border: none;
+    color: #888888; /* Un gris apagado para las que no estás viendo */
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase; /* Convierte todo a mayúsculas automáticamente */
+    letter-spacing: 1px; /* Separa las letras para darle el toque Letterboxd */
+    padding: 15px 0; 
+    cursor: pointer;
+    transition: all 0.2s ease;
+    
+    /* Preparamos el borde invisible para que no "brinque" al activarse */
+    border-bottom: 2px solid transparent; 
+    
+    /* Pequeño truco para que la raya verde "pise" exactamente a la raya gris del contenedor */
+    margin-bottom: -1px; 
+}
+
+/* Efecto al pasar el mouse por encima */
+.btn-nav-perfil:hover {
+    color: #111111; /* Se pinta de negro al acercar el mouse */
+}
+
+/* El estado de la pestaña en la que estás actualmente */
+.btn-nav-perfil.activo {
+    color: #1DB954; /* Verde Spotify / EchoHead */
+    border-bottom: 2px solid #1DB954; /* La línea verde que subraya la palabra */
+}
+

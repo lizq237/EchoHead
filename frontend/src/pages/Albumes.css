@@ -90,6 +90,7 @@ body {
   border: none ;      
   outline: none ;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  border-radius: 0 !important;
 }
 
 .cuadro-album .tarjeta-imagen {
@@ -98,6 +99,7 @@ body {
   object-fit: cover ;
   display: block ;
   border: none ;      
+  border-radius: 0 !important;
 }
 
 /* Texto alineado y ajustado a la medida de la portada */

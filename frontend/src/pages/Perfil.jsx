@@ -3,10 +3,18 @@ import { useEffect, useRef, useState } from "react";
 import { IoShareOutline } from "react-icons/io5";
 import btnagregar from '../assets/agregar.png';
 import btneliminar from '../assets/eliminar-btn.png';
+import ListaAlbumesPerfil from '../components/ListaAlbumesPerfil';
+import ListaAmigosPerfil from '../components/ListaAmigosPerfil';
+import ListaCancionesPerfil from '../components/ListaCancionesPerfil';
+import ListaFavoritosPerfil from '../components/ListaFavoritosPerfil';
+import ListaPendientesPerfil from '../components/ListaPendientesPerfil';
+import ListaReseñasPerfil from '../components/ListaReseñasPerfil';
+
+
+
 import Navbar from "../components/Navbar";
 import TarjetaInteractiva from '../components/TarjetaInteractiva';
 import './Perfil.css';
-
 function Perfil ({ username, fotoPerfil, tokenSpotify, id_echohead }) {
     const borrarCancion = (idQueQuieroBorrar) => {
         const nuevaLista = cancionesFavs.filter(cancion => cancion.id !== idQueQuieroBorrar);
@@ -282,6 +290,8 @@ function Perfil ({ username, fotoPerfil, tokenSpotify, id_echohead }) {
         setEditando(!editando);
     };
 
+    const [pestanaActiva, setPestanaActiva] = useState('inicio');
+
     // ==========================================
     // RENDERIZADO VISUAL
     // ==========================================
@@ -290,6 +300,9 @@ function Perfil ({ username, fotoPerfil, tokenSpotify, id_echohead }) {
     <div className="pagina-perfil">
         <Navbar username={username} fotoPerfil={fotoPerfil} />
 
+        {/* ==============================================================
+            ENCABEZADO FIJO (Se muestra en todas las pestañas)
+            ============================================================== */}
         <section className="contenedor-tarjeta">
             <div className="tarjeta-perfil">
                 <div className="perfil-izquierda">
@@ -301,10 +314,14 @@ function Perfil ({ username, fotoPerfil, tokenSpotify, id_echohead }) {
                         <textarea
                             className="descripcion-editable"
                             value={descripcion}
+                            placeholder="Escribe algo sobre ti, tus géneros favoritos..."
+                            rows="3"
                             onChange={(e) => setDescripcion(e.target.value)}
                         />
                     ) : (
-                        <p className="descripcion">{descripcion}</p>
+                        <p className="descripcion">
+                            {descripcion || "Aún no hay descripción."}
+                        </p>
                     )}
                     <div className="estadisticas">
                         <div className="stat">
@@ -326,285 +343,372 @@ function Perfil ({ username, fotoPerfil, tokenSpotify, id_echohead }) {
             </div>
         </section>
 
-        <div className="menu-perfil">
-            <div className="apartados">
-                <a href="">Albumes</a>
-                <a href="">Canciones</a>
-                <a href="">Favoritos</a>
-                <a href="">Reseñas</a>
-                <a href="">Pendientes</a>
-                <a href="">Amigos</a>
-            </div>
-        </div>
-
-        <div ref={capturaGustosRef} className="zona-exportar-gustos">
-            
-            <div className="marca-agua-oculta">
-                <p style={{ color: '#111111', margin: 0, padding: '20px 0 0 0', textAlign: 'center' }}>
-                    Generado en <strong style={{ color: '#111111', fontWeight: 'bold' }}>EchoHead</strong> 
-                </p>
-            </div>
-
-            <section className="artistas-favs">
-                <h2 className="topArtistasTitle">Top Artistas</h2>
-                <div className="contenedor-artistasfavs">
-                    {artistasFavs.map((artista) => (
-                        <div className='cuadro-artistafav' key={artista.id}>
-                            {editando && (
-                                <button className="btn-eliminar" onClick={() => borrarArtista(artista.id)}>
-                                    <img src={btneliminar} alt="Eliminar" className="icono-eliminar"/>
-                                </button>
-                            )}
-                            <img src={artista.artistImg} alt="" className="imagen-artista"/>
-                            <p className="artista-name">{artista.artistName}</p>
-                        </div>
-                    ))}
-                    {editando && artistasFavs.length <5 && (
-                        <div className='cuadro-artistafav agregar' onClick={() => setMostrarModalArtista(true)}>
-                            <img src={btnagregar} alt="Agregar" className="icono-agregar"/>
-                            <p className="artista-name">Agregar Artista</p>
-                        </div>
-                    )}
-                </div>
-            </section>
-
-            {mostrarModalArtista && (
-                <div className="modal-artista">
-                    <div className="modal-contenido">
-                        <h2>Agregar Nuevo Artista</h2>
-                        <input type="text" placeholder="Nombre del artista" className="input-modal" onChange={(e) => buscarArtista(e.target.value)}/>
-                        <button className="btn-cancelar" onClick={() => setMostrarModalArtista(false)}>Cancelar</button>
-                    </div>
-                    <div className="modal-resultados">
-                        {resultadosBusqueda.map((artista) => (
-                            <div 
-                                key={artista.id} 
-                                className="resultado-item" 
-                                onClick={() => {
-                                    if (artistasFavs.length >= 5) {
-                                         alert("¡Ya tienes tus 5 artistas top seleccionados!");
-                                         setMostrarModalArtista(false);
-                                         setResultadosBusqueda([]);
-                                         return;
-                                    }
-                                    const nuevoArtista = {
-                                        id: artista.id,
-                                        artistImg: artista?.images?.[0]?.url || "https://placehold.co/300x300?text=Sin+Foto",
-                                        artistName: artista.name
-                                    };
-                                    setArtistasFavs([...artistasFavs, nuevoArtista]);
-                                    setMostrarModalArtista(false);
-                                    setResultadosBusqueda([]);
-                                }}
-                            >
-                                <img src={artista?.images?.[2]?.url || artista?.images?.[0]?.url || "https://placehold.co/40x40?text=+"} alt="foto" className="img-miniatura" />
-                                <div className="info-resultado">
-                                    <p className="nombre-res">{artista.name}</p>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            )}
-
-            <section className="albumes-favs-seccion">
-                <h2 className="topAlbumesTitle">Top Álbumes</h2>
-                <div className="contenedor-albumesfavs">
-                    {albumesFavs.map((album) => (
-                        <div className='cuadro-albumfav' key={album.id}>
-                            {editando && (
-                                <button className="btn-eliminar" onClick={() => borrarAlbum(album.id)}>
-                                    <img src={btneliminar} alt="Eliminar" className="icono-eliminar"/>
-                                </button>
-                            )}
-                            <TarjetaInteractiva item={album} tipo="album" id_echohead={id_echohead} />
-                            <p className="album-name">{album.album_name || album.albumName || "Sin Nombre"}</p>
-                        </div>
-                    ))}
-                    {editando && albumesFavs.length <5 && (
-                        <div className='cuadro-albumfav agregar' onClick={() => setMostrarModalAlbum(true)}>
-                            <img src={btnagregar} alt="Agregar" className="icono-agregar"/>
-                            <p className="album-name">Agregar Álbum</p>
-                        </div>
-                    )}
-                </div>
-            </section>
-
-            {mostrarModalAlbum && (
-                <div className="modal-album">
-                    <div className="modal-contenido">
-                        <h2>Agregar Nuevo Álbum</h2>
-                        <input type="text" placeholder="Nombre del álbum" className="input-modal" onChange={(e) => buscarAlbum(e.target.value)}/>
-                        <button className="btn-cancelar" onClick={() => setMostrarModalAlbum(false)}>Cancelar</button>
-                    </div>
-                    <div className="modal-resultados">
-                        {resultadosBusqueda.map((album) => (
-                            <div 
-                                key={album.id} 
-                                className="resultado-item" 
-                                onClick={() => {
-                                    const registroPrevio = interaccionesBD.find(i => i.spotify_id === album.id) || {};
-                                    const nuevoAlbum = {
-                                        id: album.id,
-                                        albumImg: album.images[0]?.url,
-                                        albumName: album.name,
-                                        es_favorito: registroPrevio.es_favorito === true,
-                                        es_escuchado: registroPrevio.es_escuchado === true
-                                    };
-                                    setAlbumesFavs([...albumesFavs, nuevoAlbum]);
-                                    setMostrarModalAlbum(false);
-                                    setResultadosBusqueda([]);
-                                }}
-                            >
-                                <img src={album.images[2]?.url} alt="portada" className="img-miniatura" />
-                                <div className="info-resultado">
-                                    <p className="nombre-res">{album.name}</p>
-                                    <p className="artista-res">{album.artists[0].name}</p>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            )}
-
-            <section className="canciones-favs-seccion">
-                <h2 className="topCancionesTitle">Top Canciones</h2>
-                <div className="contenedor-cancionesfavs">
-                    {cancionesFavs.map((cancion) => (
-                        <div className='cuadro-cancionfav' key={cancion.id}>
-                            {editando && (
-                                <button className="btn-eliminar" onClick={() => borrarCancion(cancion.id)}>
-                                    <img src={btneliminar} alt="Eliminar" className="icono-eliminar"/>
-                                </button>
-                            )}
-                            <TarjetaInteractiva item={cancion} tipo="song" id_echohead={id_echohead} />
-                            <p className="cancion-name">{cancion.song_name || cancion.cancionName || "Sin Nombre"}</p>
-                        </div>
-                    ))}
-                    {editando && cancionesFavs.length <5 && (
-                        <div className='cuadro-cancionfav agregar' onClick={() => setMostrarModalCancion(true)}>
-                            <img src={btnagregar} alt="Agregar" className="icono-agregar"/>
-                            <p className="cancion-name">Agregar Canción</p>
-                        </div>
-                    )}
-                </div>
-            </section>
-        </div> {/* FIN DE LA ZONA DE CAPTURA */}
-
-        <div className="contenedor-btn-exportar" style={{ paddingTop: '20px' }}>
-            <button className="btn-exportar-claro" onClick={() => exportarImagen(capturaGustosRef, 'Mis_Gustos_EchoHead.png', '#e5e5e5')}>
-                <IoShareOutline /> Compartir mis gustos
+        {/* ==============================================================
+            BARRA DE NAVEGACIÓN (Se muestra en todas las pestañas)
+            ============================================================== */}
+        {/* ==============================================================
+            BARRA DE NAVEGACIÓN (Se muestra en todas las pestañas)
+            ============================================================== */}
+        <div className="menu-navegacion-perfil">
+            <button 
+                className={`btn-nav-perfil ${pestanaActiva === 'inicio' ? 'activo' : ''}`}
+                onClick={() => setPestanaActiva('inicio')}
+            >
+                Inicio
+            </button>
+            <button 
+                className={`btn-nav-perfil ${pestanaActiva === 'albumes' ? 'activo' : ''}`}
+                onClick={() => setPestanaActiva('albumes')}
+            >
+                Álbumes
+            </button>
+            <button 
+                className={`btn-nav-perfil ${pestanaActiva === 'canciones' ? 'activo' : ''}`}
+                onClick={() => setPestanaActiva('canciones')}
+            >
+                Canciones
+            </button>
+            <button 
+                className={`btn-nav-perfil ${pestanaActiva === 'favoritos' ? 'activo' : ''}`}
+                onClick={() => setPestanaActiva('favoritos')}
+            >
+                Favoritos
+            </button>
+            <button 
+                className={`btn-nav-perfil ${pestanaActiva === 'reseñas' ? 'activo' : ''}`}
+                onClick={() => setPestanaActiva('reseñas')}
+            >
+                Reseñas
+            </button>
+            <button 
+                className={`btn-nav-perfil ${pestanaActiva === 'pendientes' ? 'activo' : ''}`}
+                onClick={() => setPestanaActiva('pendientes')}
+            >
+                Pendientes
+            </button>
+            <button 
+                className={`btn-nav-perfil ${pestanaActiva === 'amigos' ? 'activo' : ''}`}
+                onClick={() => setPestanaActiva('amigos')}
+            >
+                Amigos
             </button>
         </div>
 
-        {mostrarModalCancion && (
-            <div className="modal-cancion">
-                <div className="modal-contenido">
-                    <h2>Agregar Nueva Canción</h2>
-                    <input type="text" placeholder="Nombre de la canción" className="input-modal" onChange={(e) => buscarCancion(e.target.value)}/>
-                    <button className="btn-cancelar" onClick={() => setMostrarModalCancion(false)}>Cancelar</button>
-                </div>
-                <div className="modal-resultados">
-                    {resultadosBusqueda.map((track) => (
-                        <div 
-                            key={track.id} 
-                            className="resultado-item" 
-                            onClick={() => {
-                                const registroPrevio = interaccionesBD.find(i => i.spotify_id === track.id) || {};
-                                const nuevaCancion = {
-                                    id: track.id,
-                                    cancionImg: track.album.images[0]?.url,
-                                    cancionName: track.name,
-                                    es_favorito: registroPrevio.es_favorito === true,
-                                    es_escuchado: registroPrevio.es_escuchado === true
-                                };
-                                setCancionesFavs([...cancionesFavs, nuevaCancion]);
-                                setMostrarModalCancion(false);
-                                setResultadosBusqueda([]);
-                            }}
-                        >
-                            <img src={track.album.images[2]?.url} alt="portada" className="img-miniatura" />
-                            <div className="info-resultado">
-                                <p className="nombre-res">{track.name}</p>
-                                <p className="artista-res">{track.artists[0].name}</p>
+        {/* ==============================================================
+            ZONA DINÁMICA (Aquí cambia el contenido)
+            ============================================================== */}
+        <div className="contenido-dinamico">
+
+            {/* ----------------------------------------------------
+                PESTAÑA 1: INICIO (Todo tu código original)
+                ---------------------------------------------------- */}
+            {pestanaActiva === 'inicio' && (
+                <>
+                    <div ref={capturaGustosRef} className="zona-exportar-gustos">
+                        
+                        <div className="marca-agua-oculta">
+                            <p style={{ color: '#111111', margin: 0, padding: '20px 0 0 0', textAlign: 'center' }}>
+                                Generado en <strong style={{ color: '#111111', fontWeight: 'bold' }}>EchoHead</strong> 
+                            </p>
+                        </div>
+
+                        <section className="artistas-favs">
+                            <h2 className="topArtistasTitle">Top Artistas</h2>
+                            <div className="contenedor-artistasfavs">
+                                {artistasFavs.map((artista) => (
+                                    <div className='cuadro-artistafav' key={artista.id}>
+                                        {editando && (
+                                            <button className="btn-eliminar" onClick={() => borrarArtista(artista.id)}>
+                                                <img src={btneliminar} alt="Eliminar" className="icono-eliminar"/>
+                                            </button>
+                                        )}
+                                        <img src={artista.artistImg} alt="" className="imagen-artista"/>
+                                        <p className="artista-name">{artista.artistName}</p>
+                                    </div>
+                                ))}
+                                {editando && artistasFavs.length <5 && (
+                                    <div className='cuadro-artistafav agregar' onClick={() => setMostrarModalArtista(true)}>
+                                        <img src={btnagregar} alt="Agregar" className="icono-agregar"/>
+                                        <p className="artista-name">Agregar Artista</p>
+                                    </div>
+                                )}
+                            </div>
+                        </section>
+
+                        {mostrarModalArtista && (
+                            <div className="modal-artista">
+                                <div className="modal-contenido">
+                                    <h2>Agregar Nuevo Artista</h2>
+                                    <input type="text" placeholder="Nombre del artista" className="input-modal" onChange={(e) => buscarArtista(e.target.value)}/>
+                                    <button className="btn-cancelar" onClick={() => setMostrarModalArtista(false)}>Cancelar</button>
+                                </div>
+                                <div className="modal-resultados">
+                                    {resultadosBusqueda.map((artista) => (
+                                        <div 
+                                            key={artista.id} 
+                                            className="resultado-item" 
+                                            onClick={() => {
+                                                if (artistasFavs.length >= 5) {
+                                                     alert("¡Ya tienes tus 5 artistas top seleccionados!");
+                                                     setMostrarModalArtista(false);
+                                                     setResultadosBusqueda([]);
+                                                     return;
+                                                }
+                                                const nuevoArtista = {
+                                                    id: artista.id,
+                                                    artistImg: artista?.images?.[0]?.url || "https://placehold.co/300x300?text=Sin+Foto",
+                                                    artistName: artista.name
+                                                };
+                                                setArtistasFavs([...artistasFavs, nuevoArtista]);
+                                                setMostrarModalArtista(false);
+                                                setResultadosBusqueda([]);
+                                            }}
+                                        >
+                                            <img src={artista?.images?.[2]?.url || artista?.images?.[0]?.url || "https://placehold.co/40x40?text=+"} alt="foto" className="img-miniatura" />
+                                            <div className="info-resultado">
+                                                <p className="nombre-res">{artista.name}</p>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+
+                        <section className="albumes-favs-seccion">
+                            <h2 className="topAlbumesTitle">Top Álbumes</h2>
+                            <div className="contenedor-albumesfavs">
+                                {albumesFavs.map((album) => (
+                                    <div className='cuadro-albumfav' key={album.id}>
+                                        {editando && (
+                                            <button className="btn-eliminar" onClick={() => borrarAlbum(album.id)}>
+                                                <img src={btneliminar} alt="Eliminar" className="icono-eliminar"/>
+                                            </button>
+                                        )}
+                                        <TarjetaInteractiva item={album} tipo="album" id_echohead={id_echohead} />
+                                        <p className="album-name">{album.album_name || album.albumName || "Sin Nombre"}</p>
+                                    </div>
+                                ))}
+                                {editando && albumesFavs.length <5 && (
+                                    <div className='cuadro-albumfav agregar' onClick={() => setMostrarModalAlbum(true)}>
+                                        <img src={btnagregar} alt="Agregar" className="icono-agregar"/>
+                                        <p className="album-name">Agregar Álbum</p>
+                                    </div>
+                                )}
+                            </div>
+                        </section>
+
+                        {mostrarModalAlbum && (
+                            <div className="modal-album">
+                                <div className="modal-contenido">
+                                    <h2>Agregar Nuevo Álbum</h2>
+                                    <input type="text" placeholder="Nombre del álbum" className="input-modal" onChange={(e) => buscarAlbum(e.target.value)}/>
+                                    <button className="btn-cancelar" onClick={() => setMostrarModalAlbum(false)}>Cancelar</button>
+                                </div>
+                                <div className="modal-resultados">
+                                    {resultadosBusqueda.map((album) => (
+                                        <div 
+                                            key={album.id} 
+                                            className="resultado-item" 
+                                            onClick={() => {
+                                                const registroPrevio = interaccionesBD.find(i => i.spotify_id === album.id) || {};
+                                                const nuevoAlbum = {
+                                                    id: album.id,
+                                                    albumImg: album.images[0]?.url,
+                                                    albumName: album.name,
+                                                    es_favorito: registroPrevio.es_favorito === true,
+                                                    es_escuchado: registroPrevio.es_escuchado === true,
+                                                    calificacion: registroPrevio.calificacion || 0,
+                                                    descripcion:registroPrevio.descripcion || ""
+                                                };
+                                                setAlbumesFavs([...albumesFavs, nuevoAlbum]);
+                                                setMostrarModalAlbum(false);
+                                                setResultadosBusqueda([]);
+                                            }}
+                                        >
+                                            <img src={album.images[2]?.url} alt="portada" className="img-miniatura" />
+                                            <div className="info-resultado">
+                                                <p className="nombre-res">{album.name}</p>
+                                                <p className="artista-res">{album.artists[0].name}</p>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+
+                        <section className="canciones-favs-seccion">
+                            <h2 className="topCancionesTitle">Top Canciones</h2>
+                            <div className="contenedor-cancionesfavs">
+                                {cancionesFavs.map((cancion) => (
+                                    <div className='cuadro-cancionfav' key={cancion.id}>
+                                        {editando && (
+                                            <button className="btn-eliminar" onClick={() => borrarCancion(cancion.id)}>
+                                                <img src={btneliminar} alt="Eliminar" className="icono-eliminar"/>
+                                            </button>
+                                        )}
+                                        <TarjetaInteractiva item={cancion} tipo="song" id_echohead={id_echohead} />
+                                        <p className="cancion-name">{cancion.song_name || cancion.cancionName || "Sin Nombre"}</p>
+                                    </div>
+                                ))}
+                                {editando && cancionesFavs.length <5 && (
+                                    <div className='cuadro-cancionfav agregar' onClick={() => setMostrarModalCancion(true)}>
+                                        <img src={btnagregar} alt="Agregar" className="icono-agregar"/>
+                                        <p className="cancion-name">Agregar Canción</p>
+                                    </div>
+                                )}
+                            </div>
+                        </section>
+                    </div> {/* FIN DE LA ZONA DE CAPTURA */}
+
+                    <div className="contenedor-btn-exportar" style={{ paddingTop: '20px' }}>
+                        <button className="btn-exportar-claro" onClick={() => exportarImagen(capturaGustosRef, 'Mis_Gustos_EchoHead.png', '#e5e5e5')}>
+                            <IoShareOutline /> Compartir mis gustos
+                        </button>
+                    </div>
+
+                    {mostrarModalCancion && (
+                        <div className="modal-cancion">
+                            <div className="modal-contenido">
+                                <h2>Agregar Nueva Canción</h2>
+                                <input type="text" placeholder="Nombre de la canción" className="input-modal" onChange={(e) => buscarCancion(e.target.value)}/>
+                                <button className="btn-cancelar" onClick={() => setMostrarModalCancion(false)}>Cancelar</button>
+                            </div>
+                            <div className="modal-resultados">
+                                {resultadosBusqueda.map((track) => (
+                                    <div 
+                                        key={track.id} 
+                                        className="resultado-item" 
+                                        onClick={() => {
+                                            const registroPrevio = interaccionesBD.find(i => i.spotify_id === track.id) || {};
+                                            const nuevaCancion = {
+                                                id: track.id,
+                                                cancionImg: track.album.images[0]?.url,
+                                                cancionName: track.name,
+                                                es_favorito: registroPrevio.es_favorito === true,
+                                                es_escuchado: registroPrevio.es_escuchado === true,
+                                                es_pendiente: registroPrevio.es_pendiente === true,
+                                                calificacion: registroPrevio.calificacion || 0,
+                                                descripcion:registroPrevio.descripcion || "",
+                                            };
+                                            setCancionesFavs([...cancionesFavs, nuevaCancion]);
+                                            setMostrarModalCancion(false);
+                                            setResultadosBusqueda([]);
+                                        }}
+                                    >
+                                        <img src={track.album.images[2]?.url} alt="portada" className="img-miniatura" />
+                                        <div className="info-resultado">
+                                            <p className="nombre-res">{track.name}</p>
+                                            <p className="artista-res">{track.artists[0].name}</p>
+                                        </div>
+                                    </div>
+                                ))}
                             </div>
                         </div>
-                    ))}
-                </div>
-            </div>
-        )}
+                    )}
 
-        {/* ==============================================================
-            ZONA 2: TU MES EN BUCLE (EXPORTABLE OSCURA)
-            ============================================================== */}
-        <div style={{ backgroundColor: '#0a0a0a', width: '100%', paddingBottom: '80px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                    {/* TU MES EN BUCLE */}
+                    <div style={{ backgroundColor: '#0a0a0a', width: '100%', paddingBottom: '80px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                        
+                        <section className="bucle-mes-usuario" ref={capturaMesRef} style={{ width: '100%', paddingBottom: '40px', backgroundColor: '#0a0a0a' }}>
+                            <h2 className="bucleMesTitle">Tu mes en bucle</h2>
+                            
+                            <div className="marca-agua-oculta">
+                                <p style={{ color: '#ffffff', margin: 0, padding: 0, textAlign: 'center' }}>
+                                    Generado en <strong style={{ fontWeight: 'bold' }}>EchoHead</strong> 
+                                </p>
+                            </div>
+                            
+                            <div className="bucle-columnas-layout">
+                                <div className="bucle-columna">
+                                    <h3 className="bucle-categoria-titulo">Top Artistas</h3>
+                                    <div className="bucle-lista">
+                                        {artistasMes.map((artista) => (
+                                            <div className="bucle-item" key={artista.id}>
+                                                <img src={artista.images[0]?.url} alt="" className="bucle-img-cuadro"/>
+                                                <div className="bucle-texto-contenedor">
+                                                    <p className="bucle-nombre">{artista.name}</p>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+
+                                <div className="bucle-columna">
+                                    <h3 className="bucle-categoria-titulo">Top Álbumes</h3>
+                                    <div className="bucle-lista">
+                                        {albumesMes.map((album) => (
+                                            <div className="bucle-item" key={album.id}>
+                                                <img src={album.albumImage} alt={album.albumName} className="bucle-img-cuadro" />
+                                                <div className="bucle-texto-contenedor">
+                                                    <p className="bucle-nombre">{album.albumName}</p>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+
+                                <div className="bucle-columna">
+                                    <h3 className="bucle-categoria-titulo">Top Canciones</h3>
+                                    <div className="bucle-lista">
+                                        {cancionesMes.map((cancion) => (
+                                            <div className="bucle-item" key={cancion.id}>
+                                                <img src={cancion.album.images[0]?.url} alt="" className="bucle-img-circulo" />
+                                                <div className="bucle-texto-contenedor">
+                                                    <p className="bucle-nombre">{cancion.name}</p>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <div className="contenedor-btn-exportar" style={{ marginTop: '10px' }}>
+                            <button className="btn-exportar" onClick={() => exportarImagen(capturaMesRef, 'Mi_Mes_EchoHead.png', '#0a0a0a')}>
+                                Compartir mi mes
+                            </button>
+                        </div>
+                    </div>
+                </>
+            )}
+
+            {/* ----------------------------------------------------
+                PESTAÑA 2: ÁLBUMES
+                ---------------------------------------------------- */}
+            {pestanaActiva === 'albumes' && (
+                <ListaAlbumesPerfil id_echohead={id_echohead} />
+            )}
+
             
-            <section className="bucle-mes-usuario" ref={capturaMesRef} style={{ width: '100%', paddingBottom: '40px', backgroundColor: '#0a0a0a' }}>
-                <h2 className="bucleMesTitle">Tu mes en bucle</h2>
-                
-                <div className="marca-agua-oculta">
-                    <p style={{ color: '#ffffff', margin: 0, padding: 0, textAlign: 'center' }}>
-                        Generado en <strong style={{ fontWeight: 'bold' }}>EchoHead</strong> 
-                    </p>
-                </div>
-                
-                <div className="bucle-columnas-layout">
-                    {/* COLUMNA 1: ARTISTAS */}
-                    <div className="bucle-columna">
-                        <h3 className="bucle-categoria-titulo">Top Artistas</h3>
-                        <div className="bucle-lista">
-                            {artistasMes.map((artista) => (
-                                <div className="bucle-item" key={artista.id}>
-                                    <img src={artista.images[0]?.url} alt="" className="bucle-img-cuadro"/>
-                                    <div className="bucle-texto-contenedor">
-                                        <p className="bucle-nombre">{artista.name}</p>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
+            {/* ----------------------------------------------------
+                PESTAÑA 3: CANCIONES
+                ---------------------------------------------------- */}
+            {pestanaActiva === 'canciones' && (
+                <ListaCancionesPerfil id_echohead={id_echohead} />
+            )}
 
-                    {/* COLUMNA 2: ÁLBUMES */}
-                    <div className="bucle-columna">
-                        <h3 className="bucle-categoria-titulo">Top Álbumes</h3>
-                        <div className="bucle-lista">
-                            {albumesMes.map((album) => (
-                                <div className="bucle-item" key={album.id}>
-                                    <img src={album.albumImage} alt={album.albumName} className="bucle-img-cuadro" />
-                                    <div className="bucle-texto-contenedor">
-                                        <p className="bucle-nombre">{album.albumName}</p>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-
-                    {/* COLUMNA 3: CANCIONES */}
-                    <div className="bucle-columna">
-                        <h3 className="bucle-categoria-titulo">Top Canciones</h3>
-                        <div className="bucle-lista">
-                            {cancionesMes.map((cancion) => (
-                                <div className="bucle-item" key={cancion.id}>
-                                    <img src={cancion.album.images[0]?.url} alt="" className="bucle-img-circulo" />
-                                    <div className="bucle-texto-contenedor">
-                                        <p className="bucle-nombre">{cancion.name}</p>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <div className="contenedor-btn-exportar" style={{ marginTop: '10px' }}>
-                <button className="btn-exportar" onClick={() => exportarImagen(capturaMesRef, 'Mi_Mes_EchoHead.png', '#0a0a0a')}>
-                    Compartir mi mes
-                </button>
-            </div>
+            {/* ----------------------------------------------------
+                RESTO DE PESTAÑAS (Las rellenaremos después)
+                ---------------------------------------------------- */}
+            {pestanaActiva === 'favoritos' && (
+                <ListaFavoritosPerfil id_echohead={id_echohead} />
+            )}
             
+            {pestanaActiva === 'reseñas' && (
+                <ListaReseñasPerfil id_echohead={id_echohead} />
+            )}
+            
+            {pestanaActiva === 'pendientes' && (
+                <ListaPendientesPerfil id_echohead={id_echohead} />
+            )}
+            
+            {pestanaActiva === 'amigos' && (
+                <ListaAmigosPerfil id_echohead={id_echohead} />
+            )}
+
         </div>
     </div>
-    );
+);
 }
 
 export default Perfil;

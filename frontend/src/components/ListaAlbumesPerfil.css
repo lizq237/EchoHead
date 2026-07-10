@@ -1,0 +1,114 @@
+/* Contenedor principal para centrar todo */
+.perfil-biblioteca-contenedor {
+    width: 100%;
+    max-width: 1300px; /* Ancho máximo para pantallas grandes */
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* EL SECRETO DE LETTERBOXD: CSS GRID */
+.lista-albumes-grid {
+    display: grid;
+    /* Ajustamos el tamaño mínimo para que respiren mejor (aprox 120px - 140px) */
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 30px 20px; /* 30px de espacio vertical (filas), 20px horizontal (columnas) */
+    justify-content: center;
+    padding: 20px 0;
+}
+
+/* Tarjeta individual más pequeña */
+.cuadro-album-pequeno {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%; 
+    /* BORRAMOS EL OVERFLOW HIDDEN */
+    position: relative; /* Agrega esto para que el menú flote por encima */
+    z-index: 1; /* Nivel base */
+}
+.cuadro-album-pequeno:hover {
+    z-index: 10;
+}
+.cuadro-album-pequeno > div:first-child {
+    width: 100%;
+    aspect-ratio: 1 / 1; /* Mantiene la portada perfectamente cuadrada */
+}
+
+/* Caja de información debajo de la imagen */
+.info-album-abajo {
+    width: 100%;
+    margin-top: 8px;
+    text-align: center;
+    
+}
+
+/* Nombre truncado (Si es muy largo, pone puntos suspensivos ...) */
+.album-name-truncado {
+    color: #e5e5e5;
+    font-size: 0.8rem;
+    font-weight: 500;
+    margin: 0 0 4px 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+}
+
+/* Estrellas y Corazón */
+.metadatos-letterboxd {
+    display: flex;
+    justify-content: flex-start; /* Alineado a la izquierda */
+    align-items: center;
+    gap: 6px;
+    color: #111111; /* Negro sólido */
+    font-size: 1.2rem; /* Más grandes para que destaquen */
+}
+
+.estrellas-perfil {
+    letter-spacing: 2px; /* Separa un poquito las estrellas entre sí */
+}
+
+.corazon-perfil {
+    font-size: 1.1rem;
+}
+/* --- ESTILOS DE LA PAGINACIÓN --- */
+.paginacion-contenedor {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: 40px;
+}
+
+.paginacion-contenedor button {
+    background-color: transparent;
+    color: #888;
+    border: 1px solid #444;
+    padding: 5px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+}
+
+.paginacion-contenedor button:hover:not(:disabled) {
+    background-color: #333;
+    color: white;
+}
+
+.paginacion-contenedor button:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.paginacion-contenedor button.pagina-activa {
+    background-color: #000000;
+    color: white;
+    border-color: #000000;
+    font-weight: bold;
+}
+.corazon-perfil {
+    font-size: 1.1rem;
+    color: #000000; /* 👈 Cambia esto a #111111 si lo quieres negro estilo Figma */
+    margin-bottom: 2px; /* A veces los íconos necesitan un empujoncito para alinearse con las estrellas */
+}

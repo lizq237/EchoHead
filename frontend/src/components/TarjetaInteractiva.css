@@ -187,3 +187,119 @@ body .tarjeta-contenedor.menu-abierto {
   overflow: visible !important; 
   z-index: 9999 !important; 
 }
+
+
+
+
+/* ============================================================
+   📝 VENTANA MODAL PARA RESEÑAS
+   ============================================================ */
+
+/* El fondo oscuro que tapa toda la pantalla */
+.overlay-modal-resena {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(5px); /* Efecto cristal en el fondo */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100000; /* Asegura que esté por encima del mundo entero */
+  animation: fadeIn 0.2s ease;
+}
+
+/* La cajita principal de la ventana */
+.modal-resena-contenido {
+  background-color: #181818;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 30px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 650px;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.8);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  animation: slideUp 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.modal-resena-contenido h3 {
+  color: #fff;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+.modal-resena-contenido h3 span {
+  color: #1DB954; /* El nombre del álbum en verde Spotify */
+}
+
+/* El área donde escribes */
+.textarea-resena {
+  width: 100%;
+  height: 250px;
+  min-height: 150px; /* Altura mínima por si la pantalla es muy pequeña */
+  max-height: 400px;
+  background-color: #282828;
+  border: 1px solid #444;
+  border-radius: 8px;
+  color: #fff;
+  font-family: 'Inter', sans-serif;
+  padding: 15px;
+  font-size: 1rem;
+  resize: none; /* Evita que el usuario deforme la caja */
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.textarea-resena:focus {
+  border-color: #1DB954;
+}
+
+/* Botones de Guardar/Cancelar */
+.modal-botones-resena {
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+}
+
+.btn-resena {
+  padding: 10px 20px;
+  border-radius: 50px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: transform 0.1s ease, filter 0.2s ease;
+}
+
+.btn-resena:hover {
+  transform: scale(1.05);
+}
+
+.btn-resena.cancelar {
+  background-color: transparent;
+  color: #a0a0a0;
+}
+
+.btn-resena.cancelar:hover {
+  color: #fff;
+}
+
+.btn-resena.guardar {
+  background-color: #1DB954;
+  color: #000;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}

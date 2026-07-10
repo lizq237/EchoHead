@@ -19,6 +19,7 @@ function Canciones({ username, fotoPerfil, tokenSpotify, cancionesFavs, id_echoh
                 return res.json();
             })
             .then(data => {
+                console.log("📥 3. POSTGRESQL DEVOLVIÓ ESTO:", data);
                 if (data && data.length > 0) setInteracciones(data);
             })
             .catch(error => console.error("Error al traer interacciones:", error));
@@ -105,10 +106,13 @@ function Canciones({ username, fotoPerfil, tokenSpotify, cancionesFavs, id_echoh
 
                         const cancionFusionada = {
                             ...safeTrack,
-                            es_escuchado: interaccionGuardada.es_escuchado === true,
-                            es_favorito: interaccionGuardada.es_favorito === true,
-                            cancionImg: safeTrack.songImage, 
-                            cancionName: safeTrack.songName 
+                            es_escuchado: interaccionGuardada.es_escuchado ?? safeTrack.es_escuchado ?? false,
+                            es_favorito: interaccionGuardada.es_favorito ?? safeTrack.es_favorito ?? false,
+                            es_pendiente: interaccionGuardada.es_pendiente ?? safeTrack.es_pendiente ?? false,
+                            calificacion: interaccionGuardada.calificacion || safeTrack.calificacion || 0,
+                            descripcion: interaccionGuardada.descripcion || safeTrack.descripcion || "",
+                            cancionImg: safeTrack.songImage || safeTrack.cancionImg, 
+                            cancionName: safeTrack.songName || safeTrack.cancionName
                         };
 
                         return (
