@@ -1,16 +1,27 @@
 import { useEffect, useState } from 'react';
-// IMPORTAMOS LOS DOS ICONOS NUEVOS AL FINAL:
+// IMPORTAMOS EL VINILO PARA EL BOTÓN
 import { IoChevronDownSharp, IoMusicalNoteSharp, IoPauseSharp, IoPlaySharp, IoPlaySkipBackSharp, IoPlaySkipForwardSharp } from "react-icons/io5";
 import './Reproductor.css';
+// IMPORTAMOS TU NUEVO COMPONENTE ESTÉTICO
+import ReproductorEstetico from './ReproductorEstetico';
 
-const Reproductor = ({ tokenSpotify }) => {
+const Reproductor = ({ tokenSpotify, username }) => {
     const [cancionActual, setCancionActual] = useState(null);
     const [estaReproduciendo, setEstaReproduciendo] = useState(false);
     const [progreso, setProgreso] = useState(0); 
     const [duracion, setDuracion] = useState(0);
-    
-    // NUEVO ESTADO: Controla si la barra se ve o se esconde
     const [barraVisible, setBarraVisible] = useState(true);
+    
+    // 👇 NUEVO ESTADO: Controla si se ve el tocadiscos 3D
+    const [mostrarEstetico, setMostrarEstetico] = useState(false);
+    useEffect(() => {
+        const abrirDesdeNavbar = () => setMostrarEstetico(true);
+        window.addEventListener('abrir-tocadiscos', abrirDesdeNavbar);
+        
+        return () => {
+            window.removeEventListener('abrir-tocadiscos', abrirDesdeNavbar);
+        };
+    }, []);
 
     const URL_BASE_SPOTIFY = "https://api.spotify.com/v1"; 
 
@@ -106,7 +117,6 @@ const Reproductor = ({ tokenSpotify }) => {
 
     return (
         <>
-            {/* BOTÓN FLOTANTE PARA RESTAURAR (Solo aparece cuando la barra está oculta) */}
             <button 
                 className={`btn-restaurar ${!barraVisible ? 'visible' : ''}`} 
                 onClick={() => setBarraVisible(true)}
@@ -115,7 +125,6 @@ const Reproductor = ({ tokenSpotify }) => {
                 <IoMusicalNoteSharp />
             </button>
 
-            {/* BARRA DE REPRODUCCIÓN (Le agregamos la clase 'oculto' si barraVisible es falso) */}
             <div className={`reproductor-barra ${!barraVisible ? 'oculto' : ''}`}>
                 
                 <div className="reproductor-info">
@@ -158,7 +167,9 @@ const Reproductor = ({ tokenSpotify }) => {
                 </div>
                 
                 <div className="reproductor-extras">
-                    {/* BOTÓN PARA OCULTAR LA BARRA */}
+                    {/* 👇 BOTÓN DEL VINILO: Abre la ventana estética */}
+                    
+
                     <button 
                         onClick={() => setBarraVisible(false)} 
                         className="btn-control btn-ocultar"
@@ -168,6 +179,22 @@ const Reproductor = ({ tokenSpotify }) => {
                     </button>
                 </div>
             </div>
+
+            {/* 👇 INYECTAMOS LA VENTANA ESTÉTICA Y LE PASAMOS TODOS TUS DATOS 👇 */}
+            {mostrarEstetico && (
+                <ReproductorEstetico 
+                    cerrarModal={() => setMostrarEstetico(false)}
+                    username={username}
+                    // Usamos el signo de interrogación por si cancionActual es null (cuando no hay música)
+                    cancion={cancionActual?.nombre || "Sin reproducir"}
+                    artista={cancionActual?.artista || "Desconocido"}
+                    imagenAlbum={cancionActual?.imagen || ""}
+                    estaReproduciendo={estaReproduciendo}
+                    pausarReproducir={alternarReproduccion}
+                    siguienteCancion={() => cambiarCancion('siguiente')}
+                    cancionAnterior={() => cambiarCancion('anterior')}
+                />
+            )}
         </>
     );
 };

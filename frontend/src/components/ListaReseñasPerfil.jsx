@@ -60,7 +60,6 @@ function ListaReseñasPerfil({ id_echohead }) {
         }));
     };
 
-    if (cargando) return <p className="mensaje-estado-perfil">Cargando tus reseñas...</p>;
 
     return (
         <div className="perfil-biblioteca-contenedor">
@@ -72,9 +71,7 @@ function ListaReseñasPerfil({ id_echohead }) {
                 <button className={filtroActivo === 'song' ? 'activo' : ''} onClick={() => cambiarFiltro('song')}>Canciones</button>
             </div>
 
-            {resenasFiltradas.length === 0 ? (
-                <p className="mensaje-estado-perfil">No tienes reseñas en esta categoría.</p>
-            ) : (
+              
                 <div className="lista-resenas-layout">
                     {resenasActuales.map((item, index) => (
                         
@@ -121,7 +118,7 @@ function ListaReseñasPerfil({ id_echohead }) {
                         </div>
                     ))}
                 </div>
-            )}
+            
 
             {/* CONTROLES DE PAGINACIÓN */}
             {totalPaginas > 1 && (

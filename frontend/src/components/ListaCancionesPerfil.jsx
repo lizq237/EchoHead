@@ -45,8 +45,7 @@ function ListaCancionesPerfil({ id_echohead }) {
         return estrellas;
     };
 
-    if (cargando) return <p className="mensaje-estado-perfil">Cargando tu biblioteca de canciones...</p>;
-    if (canciones.length === 0) return <p className="mensaje-estado-perfil">Aún no tienes canciones en tu biblioteca.</p>;
+   
 
     return (
         <div className="perfil-biblioteca-contenedor">

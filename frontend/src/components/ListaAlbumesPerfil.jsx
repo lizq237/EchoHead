@@ -59,8 +59,6 @@ function ListaAlbumesPerfil({ id_echohead }) {
     };
 
 
-    if (cargando) return <p className="mensaje-estado-perfil">Cargando tu biblioteca de álbumes...</p>;
-    if (albumes.length === 0) return <p className="mensaje-estado-perfil">Aún no tienes álbumes en tu biblioteca.</p>;
 
     return (
         <div className="perfil-biblioteca-contenedor">

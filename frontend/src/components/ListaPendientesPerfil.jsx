@@ -45,7 +45,6 @@ function ListaPendientesPerfil({ id_echohead }) {
         setPaginaActual(1); 
     };
 
-    if (cargando) return <p className="mensaje-estado-perfil">Cargando tu lista de pendientes...</p>;
 
     return (
         <div className="perfil-biblioteca-contenedor">
@@ -72,11 +71,7 @@ function ListaPendientesPerfil({ id_echohead }) {
                 </button>
             </div>
 
-            {pendientesFiltrados.length === 0 ? (
-                <p className="mensaje-estado-perfil">
-                    No tienes {filtroActivo === 'album' ? 'álbumes pendientes' : filtroActivo === 'song' ? 'canciones pendientes' : 'elementos pendientes'} por escuchar.
-                </p>
-            ) : (
+            
                 <div className="lista-albumes-grid">
                     {pendientesActuales.map((item, index) => {
                         const itemFormateado = {
@@ -106,7 +101,7 @@ function ListaPendientesPerfil({ id_echohead }) {
                         );
                     })}
                 </div>
-            )}
+            
 
             {/* CONTROLES DE PAGINACIÓN */}
             {totalPaginas > 1 && (

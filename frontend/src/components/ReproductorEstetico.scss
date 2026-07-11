@@ -1,0 +1,299 @@
+/* =========================================
+   CONTENEDOR PRINCIPAL Y MODAL
+========================================= */
+.reproductor-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    backdrop-filter: blur(5px);
+}
+
+.contenedor-captura {
+    background-color: #181818; /* Gris súper oscuro, elegante */
+    padding: 45px 40px;
+    border-radius: 20px;
+    width: 360px;
+    max-width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    box-shadow: 0px 25px 50px rgba(0,0,0,0.6);
+}
+
+.btn-cerrar-reproductor-nuevo {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 28px;
+    cursor: pointer;
+    color: #666;
+    transition: color 0.2s;
+}
+
+.btn-cerrar-reproductor-nuevo:hover {
+    color: #ff4757;
+}
+
+.titulo-usuario {
+    font-family: monospace;
+    font-size: 1.1rem;
+    letter-spacing: 3px;
+    margin: 0 0 35px 0;
+    color: #b3b3b3;
+    text-align: center;
+}
+
+/* =========================================
+   DISEÑO DEL VINILO 2D Y GIRO
+========================================= */
+/* =========================================
+   DISEÑO DEL VINILO (IDÉNTICO AL ORIGINAL) Y GIRO
+========================================= */
+.vinilo-wrapper {
+    margin-bottom: 40px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+@keyframes girarVinilo {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.disco-vinilo {
+    /* Usamos 16px como base para que las medidas 'em' del diseño original funcionen perfecto */
+    font-size: 16px; 
+    width: 15em;
+    height: 15em;
+    background-color: #111;
+    border: 1px solid #111;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    
+    /* El giro se controla desde el JSX */
+    animation: girarVinilo 6s linear infinite;
+    
+    /* 👇 LA MAGIA ORIGINAL: Todas las sombras que crean los surcos y el borde blanco 👇 */
+    box-shadow:
+        0 0.0625em 0.1875em rgba(0,0,0,0.5),
+        0 0 0.125em 0.3125em #ddd,
+        0 0.0625em 0 0.375em #bbb,
+        0 0 0.375em 0.325em rgba(0,0,0,0.3),
+        0 0 0.5em 0.375em rgba(0,0,0,0.3),
+        0 0.25em 1em 0.5em rgba(0,0,0,0.15),
+        inset 0 0 0 0.0625em rgba(0,0,0,0.5),
+        inset 0 0 0 0.1875em rgba(255,255,255,1),
+        inset 0 0 0 0.375em rgba(0,0,0,0.5),
+        inset 0 0 0 0.4375em rgba(255,255,255,0.2),
+        inset 0 0 0 0.5em rgba(0,0,0,0.5),
+        inset 0 0 0 0.5625em rgba(255,255,255,0.3),
+        inset 0 0 0 0.625em rgba(0,0,0,0.5),
+        inset 0 0 0 0.6875em rgba(255,255,255,0.2),
+        inset 0 0 0 0.75em rgba(0,0,0,0.5),
+        inset 0 0 0 0.8125em rgba(255,255,255,0.3),
+        inset 0 0 0 0.875em rgba(0,0,0,0.5),
+        inset 0 0 0 0.9375em rgba(255,255,255,0.3),
+        inset 0 0 0 1em rgba(0,0,0,0.5),
+        inset 0 0 0 1.0625em rgba(255,255,255,0.2),
+        inset 0 0 0 1.125em rgba(0,0,0,0.5),
+        inset 0 0 0 1.1875em rgba(255,255,255,0.3),
+        inset 0 0 0 1.25em rgba(0,0,0,0.5),
+        inset 0 0 0 1.3125em rgba(255,255,255,0.2),
+        inset 0 0 0 1.375em rgba(255,255,255,0.2),
+        inset 0 0 0 1.4375em rgba(0,0,0,0.5),
+        inset 0 0 0 1.5em rgba(255,255,255,0.3),
+        inset 0 0 0 1.5625em rgba(0,0,0,0.5),
+        inset 0 0 0 1.625em rgba(255,255,255,0.3),
+        inset 0 0 0 1.6875em rgba(0,0,0,0.5),
+        inset 0 0 0 1.75em rgba(255,255,255,0.2),
+        inset 0 0 0 1.8125em rgba(0,0,0,0.5),
+        inset 0 0 0 1.875em rgba(255,255,255,0.2),
+        inset 0 0 0 1.9375em rgba(0,0,0,0.5),
+        inset 0 0 0 2em rgba(255,255,255,0.3),
+        inset 0 0 0 2.0625em rgba(0,0,0,0.5),
+        inset 0 0 0 2.125em rgba(0,0,0,0.5),
+        inset 0 0 0 2.1875em rgba(255,255,255,0.1),
+        inset 0 0 0 2.25em rgba(0,0,0,0.5),
+        inset 0 0 0 2.3125em rgba(255,255,255,0.2),
+        inset 0 0 0 2.375em rgba(255,255,255,0.1),
+        inset 0 0 0 2.4375em rgba(0,0,0,0.5),
+        inset 0 0 0 2.5em rgba(255,255,255,0.3),
+        inset 0 0 0 2.5625em rgba(0,0,0,0.5),
+        inset 0 0 0 2.625em rgba(255,255,255,0.2),
+        inset 0 0 0 2.6875em rgba(0,0,0,0.5),
+        inset 0 0 0 2.75em rgba(255,255,255,0.2),
+        inset 0 0 0 2.8125em rgba(0,0,0,0.5),
+        inset 0 0 0 2.875em rgba(255,255,255,0.2),
+        inset 0 0 0 2.9375em rgba(0,0,0,0.5),
+        inset 0 0 0 3em rgba(255,255,255,0.3),
+        inset 0 0 0 3.0625em rgba(0,0,0,0.5),
+        inset 0 0 0 3.125em rgba(0,0,0,0.5),
+        inset 0 0 0 3.1875em rgba(255,255,255,0.2),
+        inset 0 0 0 3.25em rgba(0,0,0,0.5),
+        inset 0 0 0 3.3125em rgba(255,255,255,0.2),
+        inset 0 0 0 3.375em rgba(255,255,255,0.1),
+        inset 0 0 0 3.4375em rgba(0,0,0,0.5),
+        inset 0 0 0 3.5em rgba(255,255,255,0.3);
+}
+
+/* El brillo diagonal y degradados que hacen que parezca de plástico brillante */
+.disco-vinilo::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    transform: translate(-50%,-50%);
+    border-radius: 50%;
+    pointer-events: none; /* Para no bloquear los clics */
+    background-image:
+        linear-gradient(-45deg, rgba(255,255,255,0) 30%, rgba(255,255,255,0.125), rgba(255,255,255,0) 70%),
+        linear-gradient(-48deg, rgba(255,255,255,0) 45%, rgba(255,255,255,0.075), rgba(255,255,255,0) 55%),
+        linear-gradient(-42deg, rgba(255,255,255,0) 45%, rgba(255,255,255,0.075), rgba(255,255,255,0) 55%),
+        radial-gradient(circle at top left, rgba(0,0,0,1) 20%, rgba(0,0,0,0) 80%),
+        radial-gradient(circle at bottom right, rgba(0,0,0,1) 20%, rgba(0,0,0,0) 80%);
+    z-index: 1;
+}
+
+/* La portada de la canción (el sticker del centro) */
+.portada-vinilo {
+    width: 6em;
+    height: 6em;
+    border-radius: 50%;
+    object-fit: cover;
+    z-index: 2;
+    border: none;
+    box-shadow: inset 0 0.0625em rgba(255,255,255,0.3);
+}
+
+/* El clavo/poste metálico exacto del centro del vinilo original */
+.hoyo-centro {
+    position: absolute;
+    z-index: 3;
+    top: 50%;
+    left: 50%;
+    width: 0.25em;
+    height: 0.3125em;
+    transform: translate(-50%,-50%);
+    background-color: #eee;
+    border-radius: 0.125em;
+    box-shadow:
+        inset 0 -0.0625em 0.0625em rgba(0,0,0,0.5),
+        inset 0.0625em -0.0625em 0.125em rgba(255,255,255,0.15),
+        inset -0.0625em -0.0625em 0.125em rgba(255,255,255,0.15),
+        inset 0 -0.125em 0.125em rgba(0,0,0,0.8),
+        0 0.0625em 0.0625em rgba(0,0,0,0.5),
+        0 0.0625em 0.25em 0.0625em rgba(0,0,0,0.15),
+        0 0 0.25em 0.125em rgba(0,0,0,0.15);
+}
+
+/* =========================================
+   TEXTOS Y CONTROLES
+========================================= */
+.info-cancion-estetica {
+    text-align: center;
+    margin-bottom: 25px;
+    width: 100%;
+}
+
+.cancion-titulo {
+    font-size: 1.5rem;
+    color: #fff;
+    margin: 0 0 8px 0;
+    font-weight: 700;
+    font-family: sans-serif;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.cancion-artista {
+    font-size: 1rem;
+    color: #b3b3b3;
+    margin: 0;
+    font-family: sans-serif;
+}
+
+.controles-reproductor {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    margin-bottom: 35px;
+    
+    button {
+        background: none;
+        border: none;
+        color: #fff;
+        font-size: 1.8rem;
+        cursor: pointer;
+        transition: transform 0.1s, color 0.2s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    button:hover {
+        color: #b3b3b3;
+    }
+    
+    button:active {
+        transform: scale(0.9);
+    }
+    
+    .btn-play {
+        font-size: 2.8rem;
+    }
+}
+
+/* =========================================
+   BOTÓN DE COMPARTIR
+========================================= */
+.contenedor-compartir-nuevo {
+    width: 100%;
+    border-top: 1px solid #333;
+    padding-top: 20px;
+}
+
+.btn-compartir-nuevo {
+    background: none;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    gap: 8px;
+    cursor: pointer;
+    color: #b3b3b3;
+    transition: transform 0.2s, color 0.3s;
+    
+    span {
+        font-family: monospace;
+        font-weight: bold;
+        font-size: 0.8rem;
+        letter-spacing: 1.5px;
+    }
+    
+    .icono-compartir {
+        font-size: 1.8rem;
+    }
+}
+
+.btn-compartir-nuevo:hover {
+    transform: scale(1.05);
+    color: #fff;
+}

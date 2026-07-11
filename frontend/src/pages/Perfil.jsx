@@ -291,6 +291,8 @@ function Perfil ({ username, fotoPerfil, tokenSpotify, id_echohead }) {
     };
 
     const [pestanaActiva, setPestanaActiva] = useState('inicio');
+    const totalAlbumes = interaccionesBD.filter(item => item.tipo === 'album' && !item.es_pendiente).length;
+    const totalCanciones = interaccionesBD.filter(item => item.tipo === 'song' && !item.es_pendiente).length;
 
     // ==========================================
     // RENDERIZADO VISUAL
@@ -325,12 +327,12 @@ function Perfil ({ username, fotoPerfil, tokenSpotify, id_echohead }) {
                     )}
                     <div className="estadisticas">
                         <div className="stat">
-                            <span className="stat-num">#28</span>
+                            <span className="stat-num">#{totalAlbumes}</span>
                             <span className="stat-label">Albums</span>
                         </div>
                         <div className="linea-vertical"></div> 
                         <div className="stat">
-                            <span className="stat-num">#234</span>
+                            <span className="stat-num">#{totalCanciones}</span>
                             <span className="stat-label">Canciones</span>
                         </div>
                     </div>

@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import Reproductor from './/components/Reproductor';
+import ReproductorEstetico from './/components/ReproductorEstetico';
 import './App.css';
 import LogoSpotify from './assets/Logo_Spotify.svg';
 import Albumes from './pages/Albumes';
 import Canciones from './pages/Canciones';
 import Inicio from './pages/Inicio';
 import Perfil from './pages/Perfil';
-
 function App() {
   const [sesionIniciada, setSesionIniciada] = useState(false);
   const [usuario, setUsuario] = useState("");
@@ -165,8 +165,9 @@ function App() {
         <Route path="/albumes" element={<Albumes username={usuario} fotoPerfil={fotoPerfil} nuevosAlbumes={nuevosAlbumes} tokenSpotify={tokenSpotify}  id_echohead={idEchohead}/>} />
         <Route path="/canciones" element={<Canciones username={usuario} fotoPerfil={fotoPerfil} tokenSpotify={tokenSpotify} cancionesFavs={cancionesFavs} id_echohead={idEchohead} />} />
         <Route path="/perfil" element={<Perfil username={usuario} fotoPerfil={fotoPerfil} tokenSpotify={tokenSpotify} id_echohead={idEchohead} />} />
+        <Route path="/player" element={<ReproductorEstetico />} />
       </Routes>
-      <Reproductor tokenSpotify={tokenSpotify} />
+      <Reproductor tokenSpotify={tokenSpotify} username={usuario} />
     </>
     );
   }

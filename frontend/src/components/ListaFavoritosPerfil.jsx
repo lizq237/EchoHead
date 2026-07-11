@@ -56,7 +56,6 @@ function ListaFavoritosPerfil({ id_echohead }) {
         return estrellas;
     };
 
-    if (cargando) return <p className="mensaje-estado-perfil">Cargando tus favoritos...</p>;
 
     return (
         <div className="perfil-biblioteca-contenedor">
@@ -83,9 +82,7 @@ function ListaFavoritosPerfil({ id_echohead }) {
                 </button>
             </div>
 
-            {favoritosFiltrados.length === 0 ? (
-                <p className="mensaje-estado-perfil">No tienes {filtroActivo === 'album' ? 'álbumes' : filtroActivo === 'song' ? 'canciones' : 'elementos'} en esta categoría.</p>
-            ) : (
+            
                 <div className="lista-albumes-grid">
                     {favoritosActuales.map((item, index) => {
                         const itemFormateado = {
@@ -121,7 +118,7 @@ function ListaFavoritosPerfil({ id_echohead }) {
                         );
                     })}
                 </div>
-            )}
+            
 
             {totalPaginas > 1 && (
                 <div className="paginacion-contenedor">

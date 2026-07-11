@@ -180,6 +180,22 @@
 .apartados a:hover {
     color: #7BC8F6; 
     transform: translateY(-2px); 
+
+}
+
+
+.icono-reproductor {
+    font-size: 35px;
+    cursor: pointer;
+    color: #111111; /* Color base (puedes cambiarlo al gris de tus otros iconos) */
+    transition: all 0.2s ease; /* Hace que el cambio al pasar el mouse sea suave */
+    margin-right: 70px; /* Separa un poco el icono del texto */
+}
+
+/* Efecto al pasar el mouse por encima */
+.icono-reproductor:hover {
+    color: #1DB954; /* Se pinta del verde de Spotify/EchoHead */
+    transform: scale(1.1); /* Se hace un poquitito más grande */
 }
 
 /* --- SECCIÓN PRINCIPAL --- */
